@@ -1,0 +1,214 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled4/Model/Word.dart';
+import 'package:untitled4/Profile/profile.dart';
+import 'package:untitled4/provider/card_provider.dart';
+import 'package:untitled4/Pages/tinder_card.dart';
+import 'package:untitled4/provider/user_prodiver.dart';
+import 'Pages/BottomNavigatorBars.dart';
+import 'Service/Word_Service.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  static final String title = 'Tinder Clone';
+
+  @override
+  Widget build(BuildContext context) => MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+      create: (context) => CardProvider(),
+    ),
+      ChangeNotifierProvider(
+        create: (context) => UserProvider(),
+      ),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: title,
+      home: BottomNavigators(),
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: TextStyle(fontSize: 32),
+            elevation: 8,
+            shape: CircleBorder(),
+            minimumSize: Size.square(80),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+class pasra extends StatefulWidget {
+  const pasra({super.key});
+
+  @override
+  State<pasra> createState() => _pasraState();
+}
+
+class _pasraState extends State<pasra> {
+  @override
+  Widget build(BuildContext context)=> Container(
+    decoration: BoxDecoration(
+        color: Colors.white
+    ),
+    child: Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(16),
+          child: buildUser(),
+          ),
+        ),
+      ),
+    );
+
+  Widget buildUser() {
+    final provider = Provider.of<UserProvider>(context);
+    final users = provider.userss;
+    return MainPag(
+        user: users);
+  }
+}
+
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  Widget build(BuildContext context) => Container(
+    decoration: BoxDecoration(
+      color: Colors.white
+    ),
+    child: Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 20),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Expanded(child: buildCards()),
+              const SizedBox(height: 16),
+              buildButtons(),
+
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+
+  Widget buildCards() {
+    final provider = Provider.of<CardProvider>(context);
+    final users = provider.words;
+
+    return users.isEmpty
+        ? Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Text("Kelimeler yükleniyor",style: TextStyle(
+                fontSize: 40,color: Colors.black
+            )),
+          ),
+          SpinKitPulsingGrid(
+            color: Colors.black,
+            size:200,
+          )
+        ],
+      ),
+    )
+        : Stack(
+      children: users
+          .map((word) => TinderCard(
+        words: word,
+        isFront: users.last == word,
+      ))
+          .toList(),
+    );
+  }
+
+  Widget buildButtons() {
+    final provider = Provider.of<CardProvider>(context);
+    final users = provider.words;
+    final status = provider.getStatus();
+    final isLike = status == CardStatus.like;
+    final isDislike = status == CardStatus.dislike;
+    final isSuperLike = status == CardStatus.superLike;
+
+    return users.isEmpty
+        ? ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      child: Text(
+        'Restart',
+        style: TextStyle(color: Colors.black),
+      ),
+      onPressed: () {
+        final provider =
+        Provider.of<CardProvider>(context, listen: false);
+
+        provider.resetUsers();
+      },
+    )
+        : Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+      ],
+    );
+  }
+
+  MaterialStateProperty<Color> getColor(
+      Color color, Color colorPressed, bool force) {
+    final getColor = (Set<MaterialState> states) {
+      if (force || states.contains(MaterialState.pressed)) {
+        return colorPressed;
+      } else {
+        return color;
+      }
+    };
+
+    return MaterialStateProperty.resolveWith(getColor);
+  }
+
+  MaterialStateProperty<BorderSide> getBorder(
+      Color color, Color colorPressed, bool force) {
+    final getBorder = (Set<MaterialState> states) {
+      if (force || states.contains(MaterialState.pressed)) {
+        return BorderSide(color: Colors.transparent);
+      } else {
+        return BorderSide(color: color, width: 2);
+      }
+    };
+
+    return MaterialStateProperty.resolveWith(getBorder);
+  }
+}
