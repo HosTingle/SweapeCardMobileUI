@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:untitled4/Model/Word.dart';
-
+import '../Model/Users.dart';
 import '../Service/Word_Service.dart';
 
 class NumbersWidget extends StatelessWidget {
   Users? saaaa;
   Users users= Users();
   wordservice wordService= wordservice();
+
+  NumbersWidget({super.key});
   @override
   Widget build(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.center,

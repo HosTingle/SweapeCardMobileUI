@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled4/Model/Word.dart';
 import 'package:untitled4/Profile/profile.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         create: (context) => UserProvider(),
       ),
     ],
-    child: MaterialApp(
+    child: GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: title,
       home: BottomNavigators(),
@@ -70,7 +72,6 @@ class _pasraState extends State<pasra> {
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(16),
           child: buildUser(),
           ),
         ),
@@ -80,8 +81,28 @@ class _pasraState extends State<pasra> {
   Widget buildUser() {
     final provider = Provider.of<UserProvider>(context);
     final users = provider.userss;
-    return MainPag(
-        user: users);
+    if(users.username==null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text("Bilgiler yükleniyor",style: TextStyle(
+                  fontSize: 40,color: Colors.black
+              )),
+            ),
+            SpinKitPouringHourGlassRefined(
+              color:Colors.black,
+              size:200,
+            )
+          ],
+        ),
+      );
+    }
+    else{
+      return MainPag(
+          user: users);
+    }
   }
 }
 

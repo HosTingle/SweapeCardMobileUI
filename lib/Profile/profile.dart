@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled4/Model/Word.dart';
+import 'package:untitled4/Profile/profilemenu.dart';
+import 'package:untitled4/Profile/updateprofile.dart';
 import 'package:untitled4/Service/user_Service.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
-import '../widget/numbers_widget.dart.dart';
+
+import '../Model/Users.dart';
+
 
 
 class MainPag extends StatefulWidget {
@@ -18,6 +23,7 @@ class MainPag extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
+
 
 class _MainPageState extends State<MainPag> {
   userservice user=userservice();
@@ -40,124 +46,88 @@ class _MainPageState extends State<MainPag> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          buildTop(),
-          buildContent(),
-        ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              SizedBox(height: 70,),
+              /// -- IMAGE
+              Stack(
+                children: [
+                  SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100), child:  Image(image: AssetImage("${widget.user.imagePath}")),),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.white),
+                      child: const FaIcon(FontAwesomeIcons.userLarge,color: Colors.black,),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(widget.user.username!, style: TextStyle(
+                color: Colors.black,
+                fontSize: 30
+
+              )),
+              Text("${widget.user.name} ${widget.user.surname}", style: TextStyle(
+                  color: Colors.black
+              )),
+              const SizedBox(height: 40),
+              const Divider(height: 6,color: Colors.black),
+              const SizedBox(height: 30),
+
+              /// -- MENU
+              ProfileMenuWidget(title: "Edit Profile",icon:Icons.settings,  onPress: ()async {Users result=await Get.to(() => UpdateProfileScreen(),arguments: widget.user);
+              setState(() {
+                widget.user.name=result.name;
+                widget.user.surname=result.surname;
+                widget.user.username=result.username;
+              });
+              } ),
+              ProfileMenuWidget(title: "Settings", icon:Icons.details_rounded , onPress: () {},),
+              ProfileMenuWidget(title: "User Management", icon:Icons.verified_user_outlined, onPress: () {},),
+              const Divider(height: 6,color: Colors.black),
+              const SizedBox(height: 10),
+              ProfileMenuWidget(title: "Information", icon:Icons.info, onPress: () {}),
+              ProfileMenuWidget(
+                  title: "Logout",
+                  icon:Icons.arrow_back,
+                  textColor: Colors.red,
+                  endIcon: false,
+                  onPress: () {
+                    Get.defaultDialog(
+                      title: "LOGOUT",
+                      titleStyle: const TextStyle(fontSize: 20),
+                      content: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        child: Text("Are you sure, you want to Logout?"),
+                      ),
+                      confirm: Expanded(
+                        child: ElevatedButton(
+                          onPressed: () => {},
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, side: BorderSide.none),
+                          child: const Text("Yes"),
+                        ),
+                      ),
+                      cancel: OutlinedButton(onPressed: () => {}, child: const Text("No")),
+                    );
+                  }),
+              SizedBox(height: 100)
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  Widget buildTop() {
-    final bottom = profileHeight / 2;
-    final top = coverHeight - profileHeight / 2;
-
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: bottom),
-          child: buildCoverImage(),
-        ),
-        Positioned(
-          top: top,
-          child: buildProfileImage(),
-        ),
-      ],
-    );
-  }
-
-  Widget buildCoverImage() => Container(
-    color: Colors.grey,
-    child: Image.network(
-      "https://i.ytimg.com/vi/vxUMYdj8SIE/maxresdefault.jpg",
-      width: double.infinity,
-      height: coverHeight,
-      fit: BoxFit.cover,
-    ),
-  );
-
-  Widget buildProfileImage() => CircleAvatar(
-
-    radius: profileHeight / 2,
-    backgroundColor: Colors.white,
-    child: CircleAvatar(
-      radius: profileHeight / 2 - 6,
-      backgroundColor: Colors.grey.shade800,
-      backgroundImage: NetworkImage(
-        'https://i.ytimg.com/vi/vxUMYdj8SIE/maxresdefault.jpg',
-      ),
-    ),
-  );
-
-  Widget buildContent() => Column(
-    children: [
-      const SizedBox(height: 8),
-      Text(
-       widget.user.name!,
-        style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-      ),
-      SizedBox(height: 8),
-      Text(
-        widget.user.username!,
-        style: TextStyle(fontSize: 20, color: Colors.black54),
-      ),
-      const SizedBox(height: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildSocialIcon(FontAwesomeIcons.slack),
-          const SizedBox(width: 12),
-          buildSocialIcon(FontAwesomeIcons.github),
-          const SizedBox(width: 12),
-          buildSocialIcon(FontAwesomeIcons.twitter),
-          const SizedBox(width: 12),
-          buildSocialIcon(FontAwesomeIcons.linkedin),
-        ],
-      ),
-      const SizedBox(height: 16),
-      Divider(),
-      const SizedBox(height: 16),
-      NumbersWidget(),
-      const SizedBox(height: 16),
-      Divider(),
-      const SizedBox(height: 16),
-      buildAbout(),
-      const SizedBox(height: 32),
-    ],
-  );
-
-  Widget buildAbout() => Container(
-    padding: EdgeInsets.symmetric(horizontal: 48),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "About",
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          widget.user.description!,
-          style: TextStyle(fontSize: 18, height: 1.4),
-        ),
-      ],
-    ),
-  );
-
-  Widget buildSocialIcon(IconData icon) => CircleAvatar(
-    radius: 25,
-    child: Material(
-      shape: CircleBorder(),
-      clipBehavior: Clip.hardEdge,
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () {},
-        child: Center(child: Icon(icon, size: 32)),
-      ),
-    ),
-  );
 }

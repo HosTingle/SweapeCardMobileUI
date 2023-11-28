@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:untitled4/Service/user_Service.dart';
 
-import '../Model/Word.dart';
-
-
-
-
+import '../Model/Users.dart';
 class UserProvider extends ChangeNotifier {
   userservice userser=userservice();
   Users? sa;
