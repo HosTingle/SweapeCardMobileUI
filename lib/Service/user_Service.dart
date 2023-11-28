@@ -9,7 +9,7 @@ import '../Model/Users.dart';
 class userservice {
   Future<Users> fetchuserid(int? id) async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/1GetByUserWithOtherId";
+    String url="https://10.0.2.2:7193/api/Users/1GetUserwithOthers";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {
@@ -25,10 +25,28 @@ class userservice {
     }
 
   }
+  Future<List<Users>> fetchtenuser() async {
+    print("fetch called");
+    String url="https://10.0.2.2:7193/api/Users/WordListWithOther";
+    final uri= Uri.parse(url);
+    final response=await http.get(uri);
+    if (response.statusCode == 200) {
+      // API yanıtı başarılı ise
+      final List<dynamic> pasa = json.decode(response.body);
+      // Her bir Map'ı Words nesnesine dönüştürün
+      List<Users> userla= pasa.map((map) => Users.fromJson(map)).toList();
+      print("completed");
+      return userla;
+    } else {
+      // Hata durumu ile başa çıkma
+      throw Exception('Failed to load data from the API');
+    }
+
+  }
   Future<void> UpdateUser(Users user) async {
     var request={
     "userId": user.userId?.toInt(),
-      "avatarId": user.userId!.toInt(),
+      "avatarId": user.avatarId!.toInt(),
       "username": user.username.toString(),
       "password": user.password.toString(),
       "name": user.name.toString(),
@@ -36,9 +54,9 @@ class userservice {
       "birthDate": DateFormat('yyyy-MM-dd').format(user.birthDate!),
       "phone": user.phone.toString(),
       "description": user.description.toString(),
-      "scoreId":user.userId!.toInt(),
+      "scoreId":user.scoreId!.toInt(),
       "status": user.status,
-      "wordCounterId": user.userId!.toInt(),
+      "wordCounterId": user.wordCounterId!.toInt(),
     };
     print("fetch called");
     String url="https://10.0.2.2:7193/api/Users/UpdateUser";

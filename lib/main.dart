@@ -11,6 +11,7 @@ import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/Pages/tinder_card.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
 import 'Pages/BottomNavigatorBars.dart';
+import 'Pages/leader.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -54,11 +55,52 @@ class MyApp extends StatelessWidget {
     ),
   );
 }
+class listuser extends StatefulWidget {
+  const listuser({super.key});
+
+  @override
+  State<listuser> createState() => _listuserState();
+}
+
+class _listuserState extends State<listuser> {
+  @override
+  Widget build(BuildContext context) =>tenuser();
+  Widget tenuser(){
+    final provider = Provider.of<UserProvider>(context);
+    final userlistee = provider.use;
+    if(userlistee.isEmpty==null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text("Bilgiler yükleniyor",style: TextStyle(
+                  fontSize: 40,color: Colors.black
+              )),
+            ),
+            SpinKitPouringHourGlassRefined(
+              color:Colors.black,
+              size:200,
+            )
+          ],
+        ),
+      );
+    }
+    else{
+      return leader(
+          users: userlistee);
+    }
+
+  }
+
+}
+
 class pasra extends StatefulWidget {
   const pasra({super.key});
 
   @override
   State<pasra> createState() => _pasraState();
+
 }
 
 class _pasraState extends State<pasra> {
@@ -145,9 +187,9 @@ class _MainPageState extends State<MainPage> {
 
   Widget buildCards() {
     final provider = Provider.of<CardProvider>(context);
-    final users = provider.words;
+    final words = provider.words;
 
-    return users.isEmpty
+    return words.isEmpty
         ? Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -165,10 +207,10 @@ class _MainPageState extends State<MainPage> {
       ),
     )
         : Stack(
-      children: users
+      children: words
           .map((word) => TinderCard(
         words: word,
-        isFront: users.last == word,
+        isFront: words.last == word,
       ))
           .toList(),
     );

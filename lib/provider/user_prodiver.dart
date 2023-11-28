@@ -13,6 +13,7 @@ class UserProvider extends ChangeNotifier {
   Size _screenSize = Size.zero;
 
   Users get users => userss;
+  List<Users> get use => _users;
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
@@ -21,6 +22,7 @@ class UserProvider extends ChangeNotifier {
   }
   void getuser() async{
     userss=await userser.fetchuserid(1);
+    _users=await userser.fetchtenuser();
     notifyListeners();
   }
 

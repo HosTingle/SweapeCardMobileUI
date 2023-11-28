@@ -1,6 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled4/Pages/leader.dart';
 import '../main.dart';
 import 'Page1.dart';
 class BottomNavigators extends StatefulWidget {
@@ -8,7 +9,7 @@ class BottomNavigators extends StatefulWidget {
   @override
   State<BottomNavigators> createState() => _BottomNavigatorsState();
 }
-var sayfalistesi=[Page1(),MainPage(),pasra()];
+var sayfalistesi=[listuser(),MainPage(),pasra()];
 int index=0;
 class _BottomNavigatorsState extends State<BottomNavigators> {
   @override

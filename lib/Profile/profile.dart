@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPag> {
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              SizedBox(height: 70,),
+              SizedBox(height: 30,),
               /// -- IMAGE
               Stack(
                 children: [
@@ -83,21 +83,24 @@ class _MainPageState extends State<MainPag> {
               Text("${widget.user.name} ${widget.user.surname}", style: TextStyle(
                   color: Colors.black
               )),
-              const SizedBox(height: 40),
-              const Divider(height: 6,color: Colors.black),
+              const SizedBox(height: 20),
+              Text("${widget.user.description}", style: TextStyle(
+                  color: Colors.black
+              )),
+              const Divider(height: 20,color: Colors.black),
               const SizedBox(height: 30),
 
               /// -- MENU
-              ProfileMenuWidget(title: "Edit Profile",icon:Icons.settings,  onPress: ()async {Users result=await Get.to(() => UpdateProfileScreen(),arguments: widget.user);
+              ProfileMenuWidget(title: "Edit Profile",icon:Icons.account_box,  onPress: ()async {Users result=await Get.to(() => UpdateProfileScreen(),arguments: widget.user);
               setState(() {
                 widget.user.name=result.name;
                 widget.user.surname=result.surname;
                 widget.user.username=result.username;
               });
               } ),
-              ProfileMenuWidget(title: "Settings", icon:Icons.details_rounded , onPress: () {},),
-              ProfileMenuWidget(title: "User Management", icon:Icons.verified_user_outlined, onPress: () {},),
-              const Divider(height: 6,color: Colors.black),
+              ProfileMenuWidget(title: "Settings", icon:Icons.settings , onPress: () {},),
+              ProfileMenuWidget(title: "Premium Account", icon:Icons.verified_user_outlined, onPress: () {},),
+              const Divider(height: 20,color: Colors.black),
               const SizedBox(height: 10),
               ProfileMenuWidget(title: "Information", icon:Icons.info, onPress: () {}),
               ProfileMenuWidget(
@@ -123,7 +126,7 @@ class _MainPageState extends State<MainPag> {
                       cancel: OutlinedButton(onPressed: () => {}, child: const Text("No")),
                     );
                   }),
-              SizedBox(height: 100)
+              SizedBox(height: 120)
             ],
           ),
         ),
