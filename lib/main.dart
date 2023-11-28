@@ -65,11 +65,11 @@ class listuser extends StatefulWidget {
 class _listuserState extends State<listuser> {
   @override
   Widget build(BuildContext context) =>tenuser();
+
   Widget tenuser(){
     final provider = Provider.of<UserProvider>(context);
     final userlistee = provider.use;
-    if(userlistee.isEmpty==null){
-      return Center(
+    return userlistee.isEmpty? Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -78,18 +78,16 @@ class _listuserState extends State<listuser> {
                   fontSize: 40,color: Colors.black
               )),
             ),
-            SpinKitPouringHourGlassRefined(
+            SpinKitHourGlass(
               color:Colors.black,
               size:200,
             )
           ],
         ),
-      );
-    }
-    else{
-      return leader(
+      ):
+     leader(
           users: userlistee);
-    }
+
 
   }
 
@@ -190,7 +188,7 @@ class _MainPageState extends State<MainPage> {
     final words = provider.words;
 
     return words.isEmpty
-        ? Center(
+        ? const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

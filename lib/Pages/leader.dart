@@ -12,7 +12,7 @@ class leader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white
       ),
       child: Scaffold(
@@ -20,11 +20,11 @@ class leader extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 70,),
+              const SizedBox(height: 70,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  winnercontainer(he: 160,first: false,sayi: "2",renk: Colors.green,url:users[1].imagePath! ?? "",ad: users[1].username! ?? "",puan:users[1].score!.toString() ?? ""),
+                  winnercontainer(he: 160,first: false,sayi: "2",renk: Colors?.green!,url:users[1]!.imagePath! ?? "",ad: users[1]!.username! ?? "",puan:users[1]!.score!.toString() ?? ""),
                   winnercontainer(he: 170,first: true,sayi: "1",renk: Colors.amber,url:users[0].imagePath! ?? "",ad: users[0].username! ?? "",puan:users[0].score!.toString() ?? ""),
                   winnercontainer(he: 150,first: false,sayi: "3",renk: Colors.blue,url:users[2].imagePath! ?? "",ad: users[2].username! ?? "",puan:users[2].score!.toString() ?? ""),
                 ],
@@ -39,8 +39,8 @@ class leader extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.black
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(9.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(9.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
@@ -59,15 +59,13 @@ class leader extends StatelessWidget {
                           color: Colors.white
                       ),
                       ),
-
-
                     ],
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
                     topLeft: Radius.circular(20)
@@ -84,36 +82,34 @@ class leader extends StatelessWidget {
               child: Container(
                 height: 300,
                 width: 400,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(20),
                         topLeft: Radius.circular(20)
                     ),
                     color: Colors.white
                 ),
-                child: GridView.count(
-
-                  crossAxisCount: 1,
-                  childAspectRatio: 5,
-                  children: [
-                    userlist(siralama: "4",url:users[3].imagePath!,ad: users[3].username!,puan: users[3].score.toString()),
-                    userlist(siralama: "5",url: users[4].imagePath!,ad: users[4].username!,puan:  users[4].score.toString()),
-                    userlist(siralama: "6",url: users[5].imagePath!,ad: users[5].username!,puan:  users[5].score.toString()),
-                    userlist(siralama: "7",url: users[6].imagePath!,ad: users[6].username!,puan:  users[6].score.toString()),
-                    userlist(siralama: "8",url: users[7].imagePath!,ad: users[7].username!,puan:  users[7].score.toString()),
-                    userlist(siralama: "9",url: users[8].imagePath!,ad: users[8].username!,puan:  users[8].score.toString()),
-                    userlist(siralama: "10",url: users[9].imagePath!,ad: users[9].username!,puan:  users[9].score.toString()),
-
-                  ],
+                child:ListView.builder(
+                  itemCount: 7,
+                  itemBuilder: (BuildContext context, int index) {
+                    return userlist(
+                      siralama: (index + 4).toString(),
+                      url: users[index+3].imagePath!,
+                      ad: users[index+3].username!,
+                      puan: users[index+3].score.toString(),
+                    );
+                  },
                 ),
+
               ),
             ),
-          ),
+
+              ),
 
             ],
           ),
         ),
-      ),
+    ),
     );
   }
 }
@@ -146,13 +142,13 @@ class userlist extends StatelessWidget {
                   Container(
                     height: 20,
                     width: 20,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white
                     ),
                     child: Center(
                       child: Text(
-                        siralama,style: TextStyle(
+                        siralama,style: const TextStyle(
                           color: Colors.black
                       ),
                       ),
@@ -168,7 +164,7 @@ class userlist extends StatelessWidget {
                   ClipOval(
                     clipBehavior: Clip.antiAlias,
                     child: Image.asset(url,height: 29, width: 29,fit: BoxFit.fitHeight,),),
-                  Text(ad,style: TextStyle(
+                  Text(ad,style: const TextStyle(
                       color: Colors.white
                   ),)
                 ],
@@ -178,10 +174,10 @@ class userlist extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(puan,style: TextStyle(
+                  Text(puan,style: const TextStyle(
                       color: Colors.white
                   ),),
-                  Icon(Icons.diamond,color: Colors.white,)
+                  const Icon(Icons.diamond,color: Colors.white,)
                 ],
               ),
 
@@ -216,13 +212,9 @@ class winnercontainer extends StatelessWidget {
               child: Container(
                 height: he,
                 width: 120,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40)),
-                  border: Border.all(
-                    color: Colors.yellow,
-                    width:3
-                  )
                 ),
               ),
             ),

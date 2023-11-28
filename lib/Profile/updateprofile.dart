@@ -143,6 +143,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         else if (value.length < 3) {
                           return 'Usename en az 3 karakter olmalıdır';
                         }
+                        else if (value.length < 8) {
+                          return 'Username en az 8 karakter olmalıdır';
+                        }
                         return null;
                       },
                     ),
@@ -153,6 +156,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         if (value == null || value.isEmpty) {
                           return 'Şifre boş bırakılamaz';
                         }
+
                         else if (value.length < 8) {
                           return 'Şifre en az 8 karakter olmalıdır';
                         }

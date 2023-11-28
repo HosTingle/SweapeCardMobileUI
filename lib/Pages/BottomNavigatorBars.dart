@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled4/Pages/leader.dart';
+import 'package:untitled4/Pages/webapi.dart';
 import '../main.dart';
 import 'Page1.dart';
 class BottomNavigators extends StatefulWidget {
@@ -9,7 +10,7 @@ class BottomNavigators extends StatefulWidget {
   @override
   State<BottomNavigators> createState() => _BottomNavigatorsState();
 }
-var sayfalistesi=[listuser(),MainPage(),pasra()];
+var sayfalistesi=[listuser(),WebApiPage(),MainPage(),pasra()];
 int index=0;
 class _BottomNavigatorsState extends State<BottomNavigators> {
   @override
@@ -19,6 +20,7 @@ class _BottomNavigatorsState extends State<BottomNavigators> {
       bottomNavigationBar: CurvedNavigationBar(
           items: const [
             FaIcon(FontAwesomeIcons.crown,color: Colors.white,),
+            FaIcon(FontAwesomeIcons.userInjured,color: Colors.white,),
             FaIcon(FontAwesomeIcons.solidFileWord,color: Colors.white,),
                FaIcon(FontAwesomeIcons.userLarge,color: Colors.white,)
           ],
