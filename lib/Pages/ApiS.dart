@@ -31,7 +31,7 @@ class _WebScrapingState extends State<WebScraping> {
               appBar: AppBar(
                 backgroundColor: Colors.black,
                 leading: IconButton(onPressed: () => Navigator.pop(context), icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
-                title: Text("Words", style: TextStyle(
+                title: const Text("Words", style: TextStyle(
                     color: Colors.white
                 )),
                 centerTitle: true,
@@ -40,7 +40,7 @@ class _WebScrapingState extends State<WebScraping> {
                 future: _service.getWebsiteData(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Column(
+                    return const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Center(
@@ -58,7 +58,7 @@ class _WebScrapingState extends State<WebScraping> {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2, // 4 sütunlu bir grid
                         crossAxisSpacing: 8.0, // Sütunlar arası boşluk
                         mainAxisSpacing: 8.0, // Satırlar arası boşluk
@@ -67,7 +67,7 @@ class _WebScrapingState extends State<WebScraping> {
                       itemBuilder: (context, index) {
                         return Card(
                           color: Colors.white,
-                          shape: RoundedRectangleBorder(side: BorderSide(color: Colors.black, width: 2.0), // Sınırların renk ve kalınlığını belirleme
+                          shape: RoundedRectangleBorder(side: const BorderSide(color: Colors.black, width: 2.0), // Sınırların renk ve kalınlığını belirleme
                             borderRadius: BorderRadius.circular(10.0),), // Kartın köşe yuvarlama),
                           child: ListTile(
                             title: Column(
@@ -80,7 +80,7 @@ class _WebScrapingState extends State<WebScraping> {
                                     style: TextStyle(fontWeight: FontWeight.bold,),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height:3,
                                 ),
                                 Text(

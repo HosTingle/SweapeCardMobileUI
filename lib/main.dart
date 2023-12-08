@@ -8,10 +8,10 @@ import 'package:provider/provider.dart';
 import 'package:untitled4/Model/Word.dart';
 import 'package:untitled4/Profile/profile.dart';
 import 'package:untitled4/provider/card_provider.dart';
-import 'package:untitled4/Pages/tinder_card.dart';
+import 'package:untitled4/Pages/SwapCard.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
 import 'Pages/BottomNavigatorBars.dart';
-import 'Pages/leader.dart';
+import 'Pages/LeaderBoard.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -206,7 +206,7 @@ class _MainPageState extends State<MainPage> {
     )
         : Stack(
       children: words
-          .map((word) => TinderCard(
+          .map((word) => SwapCard(
         words: word,
         isFront: words.last == word,
       ))

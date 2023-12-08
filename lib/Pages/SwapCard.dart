@@ -7,21 +7,21 @@ import 'package:provider/provider.dart';
 import '../Model/Word.dart';
 import '../provider/card_provider.dart';
 
-class TinderCard extends StatefulWidget {
+class SwapCard extends StatefulWidget {
   final Words words;
   final bool isFront;
 
-  const TinderCard({
+  const SwapCard({
     Key? key,
     required this.words,
     required this.isFront,
   }) : super(key: key);
 
   @override
-  State<TinderCard> createState() => _TinderCardState();
+  State<SwapCard> createState() => _SwapCardState();
 }
 
-class _TinderCardState extends State<TinderCard> {
+class _SwapCardState extends State<SwapCard> {
   @override
   void initState() {
     super.initState();

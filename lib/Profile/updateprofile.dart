@@ -17,6 +17,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final Users receivedData = Get.arguments;
   bool isObscure = true;
   bool isempty = true;
+  bool isenable=true;
   TextEditingController _textFieldController1 = TextEditingController();
   TextEditingController _textFieldController2 = TextEditingController();
   TextEditingController _textFieldController3 = TextEditingController();
@@ -32,6 +33,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     receivedData.password  = _textFieldController5.text;
   }
   void fetchdatafromapi() {
+    isenable=false;
     _textFieldController1.text=receivedData.name!;
     _textFieldController2.text=receivedData.surname!;
     _textFieldController3.text=receivedData.phone!;
@@ -41,7 +43,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-
+    if(isenable)
     fetchdatafromapi();
     return Scaffold(
       appBar: AppBar(
