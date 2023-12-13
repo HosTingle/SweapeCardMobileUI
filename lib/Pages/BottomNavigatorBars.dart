@@ -10,7 +10,7 @@ class BottomNavigators extends StatefulWidget {
   @override
   State<BottomNavigators> createState() => _BottomNavigatorsState();
 }
-var sayfalistesi=[listuser(),WebApiPage(),wordstransform(),pasra()];
+var sayfalistesi=[listuser(),transapi(),wordstransform(),pasra()];
 int index=0;
 class _BottomNavigatorsState extends State<BottomNavigators> {
   @override

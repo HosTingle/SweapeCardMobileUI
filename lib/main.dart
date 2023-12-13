@@ -14,6 +14,7 @@ import 'Pages/AddWordPage.dart';
 import 'Pages/BottomNavigatorBars.dart';
 import 'Pages/Cardadd.dart';
 import 'Pages/LeaderBoard.dart';
+import 'Pages/webapi.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -93,6 +94,47 @@ class _listuserState extends State<listuser> {
   }
 
 }
+class transapi extends StatefulWidget {
+  const transapi({super.key});
+
+  @override
+  State<transapi> createState() => _transapiState();
+}
+
+class _transapiState extends State<transapi> {
+  @override
+  Widget build(BuildContext context) {
+    return apitrans();
+  }
+  Widget apitrans(){
+    final provider = Provider.of<CardProvider>(context);
+    final words = provider.saaaa;
+    if(words?.firstWord==null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text("Bilgiler yükleniyor",style: TextStyle(
+                  fontSize: 40,color: Colors.black
+              )),
+            ),
+            SpinKitPouringHourGlassRefined(
+              color:Colors.black,
+              size:200,
+            )
+          ],
+        ),
+      );
+    }
+    else{
+      return WebApiPage(
+        wordc: words,
+      );
+    }
+  }
+}
+
 class wordstransform extends StatefulWidget {
   const wordstransform({super.key});
 

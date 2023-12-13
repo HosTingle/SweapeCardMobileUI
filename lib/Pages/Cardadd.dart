@@ -24,7 +24,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            final provider = Provider.of<CardProvider>(context, listen: false);
+            final provider = Provider.of<CardProvider>(context,listen: false);
             provider.resetUsers();
             Get.to(MainPage(),);
             // Butona tıklandığında yapılacak işlemler

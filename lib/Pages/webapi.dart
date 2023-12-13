@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import '../Model/Word.dart';
 import 'ApiS.dart';
 
 class WebApiPage extends StatefulWidget {
-  const WebApiPage({super.key});
+  Words? wordc;
+
+  WebApiPage({
+    Key? key,
+    required this.wordc,
+  }) : super(key: key);
 
   @override
   State<WebApiPage> createState() => _WebApiPageState();
@@ -34,8 +42,7 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => WebScraping(),arguments: widget.wordc);
                             },
                             child: Text("YÖKDİL"),
                           ),
