@@ -4,12 +4,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled4/Pages/LeaderBoard.dart';
 import 'package:untitled4/Pages/webapi.dart';
 import '../main.dart';
+import 'Cardadd.dart';
 class BottomNavigators extends StatefulWidget {
 
   @override
   State<BottomNavigators> createState() => _BottomNavigatorsState();
 }
-var sayfalistesi=[listuser(),WebApiPage(),MainPage(),pasra()];
+var sayfalistesi=[listuser(),WebApiPage(),wordstransform(),pasra()];
 int index=0;
 class _BottomNavigatorsState extends State<BottomNavigators> {
   @override

@@ -10,7 +10,9 @@ import 'package:untitled4/Profile/profile.dart';
 import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/Pages/SwapCard.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
+import 'Pages/AddWordPage.dart';
 import 'Pages/BottomNavigatorBars.dart';
+import 'Pages/Cardadd.dart';
 import 'Pages/LeaderBoard.dart';
 import 'Service/Word_Service.dart';
 
@@ -25,7 +27,7 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'Tinder Clone';
+  static final String title = 'Swap Card';
 
   @override
   Widget build(BuildContext context) => MultiProvider(
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
     ),
   );
 }
+
 class listuser extends StatefulWidget {
   const listuser({super.key});
 
@@ -87,8 +90,47 @@ class _listuserState extends State<listuser> {
       ):
      leader(
           users: userlistee);
+  }
 
+}
+class wordstransform extends StatefulWidget {
+  const wordstransform({super.key});
 
+  @override
+  State<wordstransform> createState() => _wordstransformState();
+}
+
+class _wordstransformState extends State<wordstransform> {
+  @override
+  Widget build(BuildContext context) {
+    return  transfword();
+  }
+  Widget transfword(){
+    final provider = Provider.of<CardProvider>(context);
+    final words = provider.saaaa;
+    if(words?.firstWord==null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text("Bilgiler yükleniyor",style: TextStyle(
+                  fontSize: 40,color: Colors.black
+              )),
+            ),
+            SpinKitPouringHourGlassRefined(
+              color:Colors.black,
+              size:200,
+            )
+          ],
+        ),
+      );
+    }
+    else{
+      return MyHomePage(
+        wordk: words,
+      );
+    }
   }
 
 }
@@ -186,7 +228,6 @@ class _MainPageState extends State<MainPage> {
   Widget buildCards() {
     final provider = Provider.of<CardProvider>(context);
     final words = provider.words;
-
     return words.isEmpty
         ? const Center(
       child: Column(
@@ -234,9 +275,7 @@ class _MainPageState extends State<MainPage> {
         style: TextStyle(color: Colors.black),
       ),
       onPressed: () {
-        final provider =
-        Provider.of<CardProvider>(context, listen: false);
-
+        final provider = Provider.of<CardProvider>(context, listen: false);
         provider.resetUsers();
       },
     )

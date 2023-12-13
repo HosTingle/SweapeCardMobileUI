@@ -15,7 +15,6 @@ class WordsSupport{
     data["url"]=url;
     data["text"]=url;
     return data;
-
   }
 
 }

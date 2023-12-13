@@ -22,15 +22,30 @@ class CardProvider extends ChangeNotifier {
   Offset get position => _position;
   double get angle => _angle;
 
-  CardProvider() {
+  CardProvider()  {
+    getword();
     resetUsers();
+  }
+  void getword() async{
+    Words myWord = Words(
+      wordId: 2,
+      userId: 1,
+      firstWord: "Apple",
+      secondWord: "Elma",
+      sentence: "sdfd",
+      image: "dsfsdfdsf",
+      descriptionWord: "dsfsdfsdf",
+      showCounter: 0,
+      languageId: 1,
+    );
+    saaaa=myWord;
+    notifyListeners();
   }
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;
 
   void startPosition(DragStartDetails details) {
     _isDragging = true;
-
     notifyListeners();
   }
 
@@ -149,9 +164,7 @@ class CardProvider extends ChangeNotifier {
     resetPosition();
   }
   void resetUsers() async{
-    int id=21;
-    _words=await wordService.fetchWords(id);
-    print(_words);
+    _words=await wordService.fetchWords(1);
     notifyListeners();
   }
 }
