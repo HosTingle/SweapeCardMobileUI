@@ -2,10 +2,11 @@ import 'dart:math';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-import '../Model/Word.dart';
-import '../provider/card_provider.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import '../../Model/Word.dart';
+import '../../provider/card_provider.dart';
 
 class SwapCard extends StatefulWidget {
   final Words words;
@@ -22,13 +23,17 @@ class SwapCard extends StatefulWidget {
 }
 
 class _SwapCardState extends State<SwapCard> {
+  final FlutterTts flutterTts= FlutterTts();
+  void speak(String asas) async{
+     await flutterTts.setLanguage("en-US");
+     await flutterTts.setPitch(1.2);
+     await flutterTts.speak(asas);
+  }
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery.of(context).size;
-
       final provider = Provider.of<CardProvider>(context, listen: false);
       provider.setScreenSize(size);
     });
@@ -61,6 +66,7 @@ class _SwapCardState extends State<SwapCard> {
             children: [
               buildCard(),
               buildStamps(),
+
             ],
           ),
         );
@@ -68,7 +74,6 @@ class _SwapCardState extends State<SwapCard> {
     ),
     onPanStart: (details) {
       final provider = Provider.of<CardProvider>(context, listen: false);
-
       provider.startPosition(details);
     },
     onPanUpdate: (details) {
@@ -217,10 +222,11 @@ class _SwapCardState extends State<SwapCard> {
   Widget buildbackName() => Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
+      const SizedBox(height: 55),
     Text(
       widget.words.firstWord!,
       style: TextStyle(
-        fontSize: 40,
+        fontSize: 30,
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
@@ -251,11 +257,18 @@ class _SwapCardState extends State<SwapCard> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(width: 20),
+          IconButton(
+            icon:FaIcon(FontAwesomeIcons.microphone),
+            onPressed: () {
+              String nonNullableString = widget.words.secondWord!;
+              speak(nonNullableString);
+            },
+            iconSize: 30.0, // İkonun boyutu
+          ),
           Text(
             widget.words.secondWord!,
             style: TextStyle(
-              fontSize: 40,
+              fontSize: 30,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),

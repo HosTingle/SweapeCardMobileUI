@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../Model/Users.dart';
+import '../../Model/Users.dart';
 
 class leader extends StatelessWidget {
   final List<Users> users;

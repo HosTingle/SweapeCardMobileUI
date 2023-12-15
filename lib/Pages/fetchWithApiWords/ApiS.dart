@@ -4,10 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../Model/Webword.dart';
-import '../Model/Word.dart';
-import '../Service/Word_Service.dart';
-import '../Service/webscraping_Service.dart';
+import '../../Model/Webword.dart';
+import '../../Model/Word.dart';
+import '../../Service/Word_Service.dart';
+import '../../Service/webscraping_Service.dart';
 
 class WebScraping extends StatefulWidget {
   const WebScraping({super.key});

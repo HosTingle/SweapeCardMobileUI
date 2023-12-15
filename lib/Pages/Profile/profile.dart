@@ -4,12 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled4/Profile/profilemenu.dart';
-import 'package:untitled4/Profile/updateprofile.dart';
+import 'package:untitled4/Model/Users.dart';
+import 'package:untitled4/Pages/Profile/profilemenu.dart';
+import 'package:untitled4/Pages/Profile/updateprofile.dart';
 import 'package:untitled4/Service/user_Service.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
 
-import '../Model/Users.dart';
 
 
 

@@ -2,19 +2,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled4/Model/Word.dart';
-import 'package:untitled4/Profile/profile.dart';
 import 'package:untitled4/provider/card_provider.dart';
-import 'package:untitled4/Pages/SwapCard.dart';
+import 'package:untitled4/Pages/SwapCard/SwapCard.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
-import 'Pages/AddWordPage.dart';
+import 'Pages/SwapCard/AddWordPage.dart';
 import 'Pages/BottomNavigatorBars.dart';
-import 'Pages/Cardadd.dart';
-import 'Pages/LeaderBoard.dart';
-import 'Pages/webapi.dart';
+import 'Pages/Profile/profile.dart';
+import 'Pages/SwapCard/Cardadd.dart';
+import 'Pages/LeaderBoard/LeaderBoard.dart';
+import 'Pages/SwapCard/UpdateWordPage.dart';
+import 'Pages/fetchWithApiWords/webapi.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -258,6 +260,7 @@ class _MainPageState extends State<MainPage> {
               Expanded(child: buildCards()),
               const SizedBox(height: 16),
               buildButtons(),
+              ButtonSpace()
 
             ],
           ),
@@ -266,7 +269,43 @@ class _MainPageState extends State<MainPage> {
     ),
   );
 
+  Widget ButtonSpace() {
+    final provider = Provider.of<CardProvider>(context);
+    final words = provider.saaaa;
+    final woba = provider.pos;
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          onPressed: () => Get.back(),
+          style: ElevatedButton.styleFrom(
 
+            minimumSize: Size(50, 50),
+            primary: Colors.black, // Buton rengini siyah yapar
+          ),
+          child: FaIcon(FontAwesomeIcons.arrowLeft,color: Colors.white,size: 18),
+        ),
+        ElevatedButton(
+          onPressed: () => Get.to(() => GoogleTranslate(),arguments: words),
+          style: ElevatedButton.styleFrom(
+
+            minimumSize: Size(50, 50),
+            primary: Colors.black, // Buton rengini siyah yapar
+          ),
+          child: FaIcon(FontAwesomeIcons.plus,color: Colors.white,size: 18),
+        ),
+        ElevatedButton(
+          onPressed: () => Get.to(() => UpdateWord(),arguments: woba),
+          style: ElevatedButton.styleFrom(
+
+            minimumSize: Size(50, 50),
+            primary: Colors.black, // Buton rengini siyah yapar
+          ),
+          child: FaIcon(FontAwesomeIcons.pencil,color: Colors.white,size: 18),
+        ),
+      ],
+    );
+  }
   Widget buildCards() {
     final provider = Provider.of<CardProvider>(context);
     final words = provider.words;
@@ -299,13 +338,13 @@ class _MainPageState extends State<MainPage> {
 
   Widget buildButtons() {
     final provider = Provider.of<CardProvider>(context);
-    final users = provider.words;
+    final wordnb= provider.words;
     final status = provider.getStatus();
     final isLike = status == CardStatus.like;
     final isDislike = status == CardStatus.dislike;
     final isSuperLike = status == CardStatus.superLike;
 
-    return users.isEmpty
+    return wordnb.isEmpty
         ? ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(

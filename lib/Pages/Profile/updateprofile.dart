@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:untitled4/Service/user_Service.dart';
 
-import '../Model/Users.dart';
+import '../../Model/Users.dart';
+
 class UpdateProfileScreen extends StatefulWidget {
 
   const UpdateProfileScreen({Key? key}) : super(key: key);

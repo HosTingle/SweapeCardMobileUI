@@ -1,10 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled4/Pages/LeaderBoard.dart';
-import 'package:untitled4/Pages/webapi.dart';
+import 'package:untitled4/Pages/LeaderBoard/LeaderBoard.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/webapi.dart';
 import '../main.dart';
-import 'Cardadd.dart';
+import 'SwapCard/Cardadd.dart';
 class BottomNavigators extends StatefulWidget {
 
   @override

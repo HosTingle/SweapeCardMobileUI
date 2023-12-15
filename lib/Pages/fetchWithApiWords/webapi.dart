@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import '../Model/Word.dart';
+import '../../Model/Word.dart';
 import 'ApiS.dart';
 
 class WebApiPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _WebApiPageState extends State<WebApiPage> {
         home: Scaffold(
             body: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 50,),
                   Text("Sınavlar",style: TextStyle(

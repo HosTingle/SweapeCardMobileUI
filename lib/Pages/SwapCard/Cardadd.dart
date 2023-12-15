@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
-import '../Model/Word.dart';
-import '../main.dart';
-import '../provider/card_provider.dart';
+import '../../Model/Word.dart';
+import '../../main.dart';
+import '../../provider/card_provider.dart';
 import 'AddWordPage.dart';
 class MyHomePage extends StatefulWidget {
   Words? wordk;
@@ -24,8 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            final provider = Provider.of<CardProvider>(context,listen: false);
-            provider.resetUsers();
             Get.to(MainPage(),);
             // Butona tıklandığında yapılacak işlemler
           },

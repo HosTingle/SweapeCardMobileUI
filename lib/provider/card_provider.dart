@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:untitled4/Service/Word_Service.dart';
 
 import '../Model/Word.dart';
@@ -8,6 +9,8 @@ import '../Model/Word.dart';
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
+  final FlutterTts flutterTts= FlutterTts();
+  Words? pos;
   Words? saaaa;
   Words wordss= Words();
   wordservice wordService= wordservice();
@@ -22,10 +25,17 @@ class CardProvider extends ChangeNotifier {
   Offset get position => _position;
   double get angle => _angle;
 
-  CardProvider()  {
-    getword();
+  CardProvider() {
     resetUsers();
+    getword();
+
   }
+  void speak(String asas) async{
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.2);
+    await flutterTts.speak(asas);
+  }
+
   void getword() async{
     Words myWord = Words(
       wordId: 2,
@@ -54,7 +64,6 @@ class CardProvider extends ChangeNotifier {
 
     final x = _position.dx;
     _angle = 45 * x / _screenSize.width;
-
     notifyListeners();
   }
 
@@ -126,6 +135,10 @@ class CardProvider extends ChangeNotifier {
     _angle = -20;
     _position -= Offset(2 * _screenSize.width, 0);
     wordss=_words.last;
+    int a= _words.length;
+    pos=_words[a-2];
+    String sa=_words[a-2].secondWord!;
+    speak(sa);
     _otherCard();
     notifyListeners();
     _words.insert(0, wordss);
@@ -134,6 +147,20 @@ class CardProvider extends ChangeNotifier {
   void like() async {
     _angle = 20;
     wordss=_words.last;
+    int a= _words.length;
+    if(a-2>0){
+      String sa=_words[a-2].secondWord!;
+      pos=_words[a-2];
+      speak(sa);
+    }
+    else if(a-1>0){
+      String sa=_words[a-1].secondWord!;
+      pos=_words[a-1];
+      speak(sa);
+    }
+    else{
+
+    }
     _position += Offset(2 * _screenSize.width, 0);
     _nextCard();
     await wordService.updateWords(wordss.wordId);
@@ -143,6 +170,20 @@ class CardProvider extends ChangeNotifier {
   void superLike() async {
     _angle = 0;
     wordss=_words.last;
+    int a= _words.length;
+    if(a-2>0){
+      String sa=_words[a-2].secondWord!;
+      pos=_words[a-2];
+      speak(sa);
+    }
+    else if(a-1>0){
+      String sa=_words[a-1].secondWord!;
+      pos=_words[a-1];
+      speak(sa);
+    }
+    else{
+
+    }
     _position -= Offset(0, _screenSize.height);
     _nextCard();
     //await wordService.deleteWords(_words[].wordId);
@@ -165,6 +206,7 @@ class CardProvider extends ChangeNotifier {
   }
   void resetUsers() async{
     _words=await wordService.fetchWords(1);
+    pos= _words.last;
     notifyListeners();
   }
 }
