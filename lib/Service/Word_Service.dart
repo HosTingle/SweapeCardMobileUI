@@ -101,7 +101,7 @@ class wordservice {
     else
       throw Exception('Failed to update data from the API');
   }
-  Future<void> addWords(Words? words) async{
+  Future<bool> addWords(Words? words) async{
     var request={
       "userId": words?.userId!.toInt(),
       "firstWord": words?.firstWord.toString(),
@@ -121,9 +121,14 @@ class wordservice {
     );
     if (response.statusCode == 200) {
       // API yanıtı başarılı ise
+      bool sa=true;
       print("completed");
+      return sa;
+
 
     } else {
+      bool sas=false;
+      return sas;
       // Hata durumu ile başa çıkma
       throw Exception('Failed to load data from the API');
     }
@@ -144,6 +149,34 @@ class wordservice {
     String url="https://10.0.2.2:7193/api/Word/UpdateWord";
     final uri= Uri.parse(url);
     final response=await http.put(uri, body:jsonEncode(request),headers: {
+      'Content-Type': 'application/json', // Content-Type başlığını ekleyin
+    },
+    );
+    if (response.statusCode == 200) {
+      // API yanıtı başarılı ise
+      print("completed");
+
+    } else {
+      // Hata durumu ile başa çıkma
+      throw Exception('Failed to load data from the API');
+    }
+  }
+  Future<void> ChatgptWords(Words? words) async{
+    var request={
+      "wordId":words?.wordId!.toInt(),
+      "userId": words?.userId!.toInt(),
+      "firstWord": words?.firstWord.toString(),
+      "secondWord": words?.secondWord.toString(),
+      "sentence": words?.sentence.toString(),
+      "image": words?.image.toString(),
+      "descriptionWord": words?.descriptionWord.toString(),
+      "showCounter": words?.showCounter.toString(),
+      "languageId":words?.languageId!.toInt(),
+    };
+    print("fetch called");
+    String url="https://10.0.2.2:7193/api/Word/CreatWitChatGpt";
+    final uri= Uri.parse(url);
+    final response=await http.post(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
     },
     );

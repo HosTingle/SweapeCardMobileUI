@@ -30,12 +30,17 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
     firstTextFieldController.text=translated;
   }
   void _submitForm() {
-    receivedData.userId = 1;
-    receivedData.firstWord  = translated;
-    receivedData.secondWord  = text1;
-    receivedData.languageId=1;
-    receivedData.showCounter=0;
-    receivedData.sentence="";
+    if(translated.isEmpty){
+
+    }
+    else {
+      receivedData.userId = 1;
+      receivedData.firstWord = translated;
+      receivedData.secondWord = text1;
+      receivedData.languageId = 1;
+      receivedData.showCounter = 0;
+      receivedData.sentence = "";
+    }
   }
   wordservice wordser= wordservice();
   OverlayEntry? _overlayEntry;
@@ -93,7 +98,6 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
                       final translation = HtmlEscape().convert(
                         translations.first['translatedText'],
                       );
-
                       setState(() {
                         translated=translation;
                       });
@@ -126,17 +130,26 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
                 const SizedBox(height: 40),
 
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     _submitForm();
-                    wordser.addWords(receivedData);
+                    bool sas=await wordser.addWords(receivedData);
                     translated="";
                     text1="";
                     firstTextFieldController.clear();
                     firstTextFieldController2.clear();
                     _showOverlay();
-                    setState(() {
-                      _mesaj="Mesaj eklendi";
-                    });
+                    if(sas==true){
+                      setState(() {
+                        _mesaj="Kelime eklendi";
+                      });
+                    }
+                    else{
+                      if(sas==true){
+                        setState(() {
+                          _mesaj="Kelime eklenemedi";
+                        });
+                      }
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
@@ -161,13 +174,13 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
     // Container oluştur
 
     // Başarılı mesajı oluştur
-    final successMessage = 'Başarılı oldu!';
+    final successMessage = 'Kelime Başarı ile eklendi!';
     final overlayMessage = Material(
       color: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: Colors.black,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Text(

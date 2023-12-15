@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/tofel.dart';
 import '../../Model/Word.dart';
 import 'ApiS.dart';
 
@@ -43,7 +44,7 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Get.to(() => WebScraping(),arguments: widget.wordc);
+                              Get.to(() => ToeflPage(),arguments: widget.wordc);
                             },
                             child: Text("YÖKDİL"),
                           ),

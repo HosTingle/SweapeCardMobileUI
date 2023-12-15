@@ -11,7 +11,7 @@ class BottomNavigators extends StatefulWidget {
   State<BottomNavigators> createState() => _BottomNavigatorsState();
 }
 var sayfalistesi=[listuser(),transapi(),wordstransform(),pasra()];
-int index=0;
+int index=2;
 class _BottomNavigatorsState extends State<BottomNavigators> {
   @override
   Widget build(BuildContext context) {
