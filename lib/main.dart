@@ -17,6 +17,7 @@ import 'Pages/SwapCard/Cardadd.dart';
 import 'Pages/LeaderBoard/LeaderBoard.dart';
 import 'Pages/SwapCard/UpdateWordPage.dart';
 import 'Pages/fetchWithApiWords/webapi.dart';
+import 'Pages/login_page.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
     child: GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: title,
-      home: BottomNavigators(),
+      home: LoginPage(),
       theme: ThemeData(
         primarySwatch: Colors.red,
         elevatedButtonTheme: ElevatedButtonThemeData(

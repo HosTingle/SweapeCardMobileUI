@@ -1,12 +1,40 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:untitled4/Model/Word.dart';
 import 'package:http/http.dart' as http;
 
+import '../Model/Loginmodel.dart';
 import '../Model/User.dart';
 import '../Model/Users.dart';
 class userservice {
+  Users sak=Users();
+  Future<Users> loginhuser(Login log) async {
+    var request={
+      "username": log.username,
+      "password": log.password
+    };
+    print("fetch called");
+    String url="https://10.0.2.2:7193/api/Users/LoginUser";
+    final uri= Uri.parse(url);
+    final response=await http.post(uri, body:jsonEncode(request),headers: {
+      'Content-Type': 'application/json', // Content-Type başlığını ekleyin
+    },
+    );
+    print("fetch called");
+    if (response.statusCode == 200) {
+      // API yanıtı başarılı ise
+      final dynamic pasa = json.decode(response.body);
+      // Her bir Map'ı Words nesnesine dönüştürün
+      final dynamic userla= Users.fromJson(pasa);
+      print("completed");
+      return userla;
+    } else {
+      return sak;
+    }
+
+  }
   Future<Users> fetchuserid(int? id) async {
     print("fetch called");
     String url="https://10.0.2.2:7193/api/Users/1GetUserwithOthers";

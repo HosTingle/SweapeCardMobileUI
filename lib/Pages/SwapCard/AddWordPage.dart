@@ -160,7 +160,7 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
                     elevation: 3,
                     primary: Colors.black, // Buton rengini siyah yapar
                   ),
-                  child: FaIcon(FontAwesomeIcons.plusCircle),
+                  child: const FaIcon(FontAwesomeIcons.plusCircle),
                 ),
 
               ],
@@ -174,18 +174,18 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
     // Container oluştur
 
     // Başarılı mesajı oluştur
-    final successMessage = 'Kelime Başarı ile eklendi!';
+    const successMessage = 'Kelime Başarı ile eklendi!';
     final overlayMessage = Material(
       color: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Text(
           successMessage,
-          style: TextStyle(color: Colors.white, fontSize: 16.0),
+          style: const TextStyle(color: Colors.white, fontSize: 16.0),
         ),
       ),
     );
@@ -196,14 +196,14 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           overlayMessage,
-          SizedBox(height: 100,)
+          const SizedBox(height: 100,)
         ],
       ),
     );
 
     Overlay.of(context)?.insert(_overlayEntry!);
 
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       _overlayEntry?.remove();
     });
   }
