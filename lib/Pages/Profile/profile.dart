@@ -4,11 +4,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/Model/Users.dart';
 import 'package:untitled4/Pages/Profile/profilemenu.dart';
 import 'package:untitled4/Pages/Profile/updateprofile.dart';
 import 'package:untitled4/Service/user_Service.dart';
+import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
+
+import '../login_page.dart';
 
 
 
@@ -29,19 +33,23 @@ class _MainPageState extends State<MainPag> {
   userservice user=userservice();
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final size = MediaQuery
           .of(context)
           .size;
-
       final provider = Provider.of<UserProvider>(context, listen: false);
       provider.setScreenSize(size);
+      provider.getuser();
     });
   }
   final double coverHeight = 280;
   final double profileHeight = 144;
-
+  Future<void> signOut() async {
+    // SharedPreferences'ten verileri al ve sıfırla
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+    // Diğer çıkış işlemleri
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -91,16 +99,18 @@ class _MainPageState extends State<MainPag> {
               const SizedBox(height: 30),
 
               /// -- MENU
-              ProfileMenuWidget(title: "Edit Profile",icon:Icons.account_box,  onPress: ()async {Users result=await Get.to(() => UpdateProfileScreen(),arguments: widget.user);
+              ProfileMenuWidget(title: "Edit Profile",icon:Icons.account_box,  onPress: ()async {Users? result=await Get.to(() => const UpdateProfileScreen(),arguments: widget.user);
               setState(() {
-                widget.user.name=result.name;
-                widget.user.surname=result.surname;
-                widget.user.username=result.username;
+                if(result?.name!=null) {
+                  widget.user!.name = result!.name;
+                  widget.user!.surname = result!.surname;
+                  widget.user!.username = result!.username;
+                }
               });
               } ),
               ProfileMenuWidget(title: "Settings", icon:Icons.settings , onPress: () {},),
               ProfileMenuWidget(title: "Premium Account", icon:Icons.verified_user_outlined, onPress: () {},),
-              const Divider(height: 20,color: Colors.black),
+              const Divider(height: 60,color: Colors.black),
               const SizedBox(height: 10),
               ProfileMenuWidget(title: "Information", icon:Icons.info, onPress: () {}),
               ProfileMenuWidget(
@@ -114,16 +124,24 @@ class _MainPageState extends State<MainPag> {
                       titleStyle: const TextStyle(fontSize: 20),
                       content: const Padding(
                         padding: EdgeInsets.symmetric(vertical: 15.0),
-                        child: Text("Are you sure, you want to Logout?"),
+                        child: Text("Are you sure want to exit ?"),
                       ),
-                      confirm: Expanded(
+                      confirm: Container(
+                        height: 38,
                         child: ElevatedButton(
-                          onPressed: () => {},
-                          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, side: BorderSide.none),
-                          child: const Text("Yes"),
+                          onPressed: () => {
+                            signOut(),
+                          Get.offAll(() => LoginPage())
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.black, shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), // Dikdörtgenin kenar yuvarlaklığı
+                        ),),
+                          child: const Text("Yes",style: TextStyle(
+                            fontSize: 20
+                          )),
                         ),
                       ),
-                      cancel: OutlinedButton(onPressed: () => {}, child: const Text("No")),
+                      cancel: OutlinedButton(onPressed: () => {Navigator.pop(context)}, child: const Text("No")),
                     );
                   }),
               SizedBox(height: 120)

@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Model/Word.dart';
 import '../../Service/Word_Service.dart';
 import '../../provider/card_provider.dart';
@@ -20,6 +20,7 @@ class UpdateWord extends StatefulWidget {
 }
 
 class _UpdateWordState extends State<UpdateWord> {
+  int? dada;
   Words receivedData = Get.arguments;
   String translated = '';
   String apiKey='';
@@ -28,7 +29,15 @@ class _UpdateWordState extends State<UpdateWord> {
   String _mesaj="";
   TextEditingController firstTextFieldController = TextEditingController();
   TextEditingController firstTextFieldController2 = TextEditingController();
-
+  @override
+  void initState() {
+    super.initState();
+    sharedpref();
+  }
+  Future<void> sharedpref() async{
+    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    dada=sharedPreferences.getInt("userId");
+  }
   wordservice wordser= wordservice();
   void sa(){
     if(tut==0) {
@@ -40,8 +49,8 @@ class _UpdateWordState extends State<UpdateWord> {
       firstTextFieldController.text=translated;
     }
   }
-  void _submitForm() {
-    receivedData.userId = 1;
+  void _submitForm() async {
+    receivedData.userId = dada;
     receivedData.firstWord  = translated;
     receivedData.secondWord  = text1;
     receivedData.languageId=1;
@@ -59,7 +68,7 @@ class _UpdateWordState extends State<UpdateWord> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.black,
-            leading: IconButton(onPressed: () { Get.back();}, icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
+            leading: IconButton(onPressed: () { Get.back(result: receivedData);}, icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
             centerTitle: true,
           ),
           body: Padding(
@@ -86,27 +95,27 @@ class _UpdateWordState extends State<UpdateWord> {
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
-                  onChanged: (sa) async {
-                    text1=sa;
-                    const apiKey='AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
-                    const to='tr';
-                    final url=Uri.parse('https://translation.googleapis.com/language/translate/v2'
-                        '?q=$sa&target=$to&key=$apiKey',
-                    );
-                    final  response = await http.post(url);
-
-                    if (response.statusCode==200){
-                      final body=json.decode(response.body);
-                      final translations=body['data']['translations'] as List;
-                      final translation = HtmlEscape().convert(
-                        translations.first['translatedText'],
+                    onChanged: (sa) async {
+                      text1 = sa;
+                      const apiKey = 'AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
+                      const to = 'tr';
+                      final url = Uri.parse(
+                        'https://translation.googleapis.com/language/translate/v2'
+                            '?q=$sa&target=$to&key=$apiKey',
                       );
+                      final response = await http.post(url);
 
-                      setState(() {
-                        translated=translation;
-                      });
+                      if (response.statusCode == 200) {
+                        final body = json.decode(response.body);
+                        final translations = body['data']['translations'] as List;
+                        final translation = HtmlEscape().convert(
+                          translations.first['translatedText'],
+                        );
+                        setState(() {
+                          translated = translation;
+                        });
+                      }
                     }
-                  },
                 ),
 
                 const SizedBox(height: 40), // Add some spacing between the text fields
@@ -135,8 +144,8 @@ class _UpdateWordState extends State<UpdateWord> {
                   onPressed: () {
                     _submitForm();
                     wordser.updateWord(receivedData);
+                    Provider.of<CardProvider>(context,listen: false).updateData(receivedData.firstWord, receivedData.secondWord);
                     Get.back();
-
                     _showOverlay();
                     setState(() {
                       _mesaj="Mesaj eklendi";
@@ -196,7 +205,7 @@ class _UpdateWordState extends State<UpdateWord> {
 
     Overlay.of(context)?.insert(_overlayEntry!);
 
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 1), () {
       _overlayEntry?.remove();
     });
   }

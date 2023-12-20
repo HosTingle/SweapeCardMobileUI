@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:untitled4/Pages/fetchWithApiWords/tofel.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/ielts.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/story.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/toed.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/yokdil.dart';
 import '../../Model/Word.dart';
 import 'ApiS.dart';
+import 'level.dart';
 
 class WebApiPage extends StatefulWidget {
   Words? wordc;
@@ -46,24 +50,6 @@ class _WebApiPageState extends State<WebApiPage> {
                             onPressed: () {
                               Get.to(() => ToeflPage(),arguments: widget.wordc);
                             },
-                            child: Text("YÖKDİL"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
-                            },
                             child: Text("TOEFL"),
                           ),
                         ),
@@ -79,8 +65,25 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => YokdilPage(),arguments: widget.wordc);
+
+                            },
+                            child: Text("YÖKDİL"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black,width: 5),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          height: 100,
+                          width: 200,
+                          child: TextButton(
+                            onPressed: () {
+                              Get.to(() => IeltsPage(),arguments: widget.wordc);
                             },
                             child: Text("IELTS"),
                           ),
@@ -106,8 +109,42 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => WordsByLevelsPage(seviye: "A1"),arguments: widget.wordc);
+
+                            },
+                            child: Text("A1"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black,width: 5),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          height: 100,
+                          width: 200,
+                          child: TextButton(
+                            onPressed: () {
+                              Get.to(() => WordsByLevelsPage(seviye: "A2"),arguments: widget.wordc);
+                            },
+                            child: Text("A2"),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black,width: 5),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(20))),
+                          height: 100,
+                          width: 200,
+                          child: TextButton(
+                            onPressed: () {
+                              Get.to(() => WordsByLevelsPage(seviye: "B1"),arguments: widget.wordc);
                             },
                             child: Text("B1"),
                           ),
@@ -124,8 +161,7 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => WordsByLevelsPage(seviye: "B2"),arguments: widget.wordc);
                             },
                             child: Text("B2"),
                           ),
@@ -142,8 +178,7 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => WordsByLevelsPage(seviye: "C1"),arguments: widget.wordc);
                             },
                             child: Text("C1"),
                           ),
@@ -280,22 +315,24 @@ class _WebApiPageState extends State<WebApiPage> {
                               color: Colors.white,
                               borderRadius: BorderRadius.all(Radius.circular(20))),
                           height: 100,
-                          width: 200,
-                          child: TextButton(
+                          width: 150,
+                          child: ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage()));
                             },
-                            child: Stack(
-                                children:[
-                                  Image.asset("assets/images/sa1.jpg"),
-                                   const Positioned(
-                                child: Center(
+                             child: Container(
+                              width: 300.0,
+                              height: 150.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
 
+                                  image: AssetImage("assets/images/avatar123.jpeg"),
+                                  fit: BoxFit.cover,
                                 ),
-                                   ),]
-                                   ),
+                              ),
                           ),
+                        ),
                         ),
                       ],
                     ),

@@ -117,8 +117,8 @@ class _SwapCardState extends State<SwapCard> {
   Widget buildCardShadow({required Widget child}) => ClipRRect(
     borderRadius: BorderRadius.circular(22),
     child: Container(
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(5),
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             spreadRadius: 20,
@@ -181,7 +181,7 @@ class _SwapCardState extends State<SwapCard> {
       child: Transform.rotate(
         angle: angle,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: color, width: 4),
@@ -205,7 +205,7 @@ class _SwapCardState extends State<SwapCard> {
 
     children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           color: Colors.green,
         ),
@@ -213,7 +213,7 @@ class _SwapCardState extends State<SwapCard> {
         height: 12,
       ),
       const SizedBox(width: 8),
-      Text(
+      const Text(
         'Recently Active',
         style: TextStyle(fontSize: 20, color: Colors.white),
       ),
@@ -225,13 +225,13 @@ class _SwapCardState extends State<SwapCard> {
       const SizedBox(height: 55),
     Text(
       widget.words.firstWord!,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 30,
         color: Colors.black,
         fontWeight: FontWeight.bold,
       ),
     ),
-    SizedBox(height: 5),
+    const SizedBox(height: 5),
       Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(// Düşündüğünüz metin yüksekliği kadar bir değer belirleyin
@@ -240,7 +240,7 @@ class _SwapCardState extends State<SwapCard> {
             child: Text(
               widget.words.sentence!,
               textAlign: TextAlign.center, // Metni yatayda da ortala
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
@@ -258,7 +258,7 @@ class _SwapCardState extends State<SwapCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            icon:FaIcon(FontAwesomeIcons.microphone),
+            icon:const FaIcon(FontAwesomeIcons.microphone),
             onPressed: () {
               String nonNullableString = widget.words.secondWord!;
               speak(nonNullableString);
@@ -267,7 +267,7 @@ class _SwapCardState extends State<SwapCard> {
           ),
           Text(
             widget.words.secondWord!,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 30,
               color: Colors.black,
               fontWeight: FontWeight.bold,

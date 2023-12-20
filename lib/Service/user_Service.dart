@@ -37,7 +37,7 @@ class userservice {
   }
   Future<Users> fetchuserid(int? id) async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/1GetUserwithOthers";
+    String url="https://10.0.2.2:7193/api/Users/${id}GetUserwithOthers";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {

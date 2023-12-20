@@ -13,7 +13,12 @@ class BottomNavigators extends StatefulWidget {
 }
 var sayfalistesi=[listuser(),transapi(),wordstransform(),pasra()];
 int index=2;
+
 class _BottomNavigatorsState extends State<BottomNavigators> {
+  void initState() {
+    super.initState();
+    index=2;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/Service/Word_Service.dart';
 
 import '../Model/Word.dart';
@@ -37,9 +38,11 @@ class CardProvider extends ChangeNotifier {
   }
 
   void getword() async{
+    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    int? dada=sharedPreferences.getInt("userId");
     Words myWord = Words(
       wordId: 2,
-      userId: 1,
+      userId:dada,
       firstWord: "Apple",
       secondWord: "Elma",
       sentence: "sdfd",
@@ -58,7 +61,9 @@ class CardProvider extends ChangeNotifier {
     _isDragging = true;
     notifyListeners();
   }
-
+  void deletall(){
+    _words.clear();
+  }
   void updatePosition(DragUpdateDetails details) {
     _position += details.delta;
 
@@ -166,7 +171,13 @@ class CardProvider extends ChangeNotifier {
     await wordService.updateWords(wordss.wordId);
     notifyListeners();
   }
-
+  void updateData(String? newData,String? newdag) {
+    wordss=_words.last;
+    int a= _words.length;
+    _words[a-1].firstWord=newData;
+    _words[a-1].secondWord=newdag;
+    notifyListeners();
+  }
   void superLike() async {
     _angle = 0;
     wordss=_words.last;
@@ -205,7 +216,9 @@ class CardProvider extends ChangeNotifier {
     resetPosition();
   }
   void resetUsers() async{
-    _words=await wordService.fetchWords(1);
+    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    int? dada=sharedPreferences.getInt("userId");
+    _words=await wordService.fetchWords(dada);
     pos= _words.last;
     notifyListeners();
   }

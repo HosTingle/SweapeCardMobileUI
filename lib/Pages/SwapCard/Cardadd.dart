@@ -21,6 +21,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final size = MediaQuery
+          .of(context)
+          .size;
+      final provider = Provider.of<CardProvider>(context, listen: false);
+      provider.setScreenSize(size);
+      provider.resetUsers();
+    });
+  }
   bool isButtonDisabled=false;
   void press() {
     if (!isButtonDisabled) {
@@ -47,23 +58,6 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("sas",style: TextStyle(
-                  fontSize: 25
-                )),
-                SizedBox(width: 20,),
-                Text("sas",style: TextStyle(
-                    fontSize: 25
-                )),
-                SizedBox(width: 20,),
-                Text("sas",style: TextStyle(
-                    fontSize: 25
-                )),
-              ],
-            ),
             SizedBox(height: 100,),
             ElevatedButton(
               onPressed: () {

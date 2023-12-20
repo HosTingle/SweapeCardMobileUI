@@ -56,9 +56,14 @@ dependencies:
 
   html: ^0.15.4
 
-  translator: ^0.1.7
-
   flutter_tts: ^3.8.5
+
+  shared_preferences: ^2.2.2
+
+  cupertino_icons: ^1.0.2
+
+  animate_do: ^3.1.2
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:

@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled4/Service/user_Service.dart';
 
 import '../../Model/Users.dart';
+import '../../provider/card_provider.dart';
+import '../../provider/user_prodiver.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
 
@@ -44,15 +47,19 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<UserProvider>(context,listen: false);
     if(isenable)
     fetchdatafromapi();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        leading: IconButton(onPressed: () => Get.back(), icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
-        title: Text("Edit Profile", style: TextStyle(
-          color: Colors.white
-        )),
+        leading: IconButton(
+            onPressed:() {
+              provider.getuser();
+          Get.back();
+
+          },
+            icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -201,6 +208,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()){
+                            provider.getuser();
                             _submitForm();
                             userService.UpdateUser(receivedData);
                             Get.back(result: receivedData);

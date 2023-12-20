@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled4/Model/Webword.dart';
 import 'package:untitled4/Service/Word_Service.dart';
@@ -19,6 +19,12 @@ class GoogleTranslate extends StatefulWidget {
 
 
 class _GoogleTranslateState extends State<GoogleTranslate> {
+  int? dada;
+  @override
+  void initState() {
+    super.initState();
+    sharedpref();
+  }
   final Words receivedData = Get.arguments;
   String translated = '';
   String apiKey='';
@@ -26,15 +32,22 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
   String _mesaj="";
   TextEditingController firstTextFieldController = TextEditingController();
   TextEditingController firstTextFieldController2 = TextEditingController();
+  Future<void> sharedpref() async{
+    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    dada=sharedPreferences.getInt("userId");
+  }
   void sa(){
     firstTextFieldController.text=translated;
   }
-  void _submitForm() {
+  void _submitForm()async {
+
+
+
     if(translated.isEmpty){
 
     }
     else {
-      receivedData.userId = 1;
+      receivedData.userId = dada;
       receivedData.firstWord = translated;
       receivedData.secondWord = text1;
       receivedData.languageId = 1;
@@ -84,26 +97,26 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
                     fontWeight: FontWeight.bold,
                   ),
                   onChanged: (sa) async {
-                    text1=sa;
-                    const apiKey='AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
-                    const to='tr';
-                    final url=Uri.parse('https://translation.googleapis.com/language/translate/v2'
-                        '?q=$sa&target=$to&key=$apiKey',
+                    text1 = sa;
+                    const apiKey = 'AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
+                    const to = 'tr';
+                    final url = Uri.parse(
+                      'https://translation.googleapis.com/language/translate/v2'
+                          '?q=$sa&target=$to&key=$apiKey',
                     );
-                    final  response = await http.post(url);
+                    final response = await http.post(url);
 
-                    if (response.statusCode==200){
-                      final body=json.decode(response.body);
-                      final translations=body['data']['translations'] as List;
+                    if (response.statusCode == 200) {
+                      final body = json.decode(response.body);
+                      final translations = body['data']['translations'] as List;
                       final translation = HtmlEscape().convert(
                         translations.first['translatedText'],
                       );
                       setState(() {
-                        translated=translation;
+                        translated = translation;
                       });
                     }
-                  },
-                ),
+                  }),
 
                 const SizedBox(height: 40), // Add some spacing between the text fields
                 const Text('Turkish', textAlign: TextAlign.center),
@@ -203,7 +216,7 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
 
     Overlay.of(context)?.insert(_overlayEntry!);
 
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 1), () {
       _overlayEntry?.remove();
     });
   }
