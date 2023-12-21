@@ -10,6 +10,7 @@ import 'package:untitled4/Model/Word.dart';
 import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/Pages/SwapCard/SwapCard.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
+import 'Pages/LoginProcess/register_page.dart';
 import 'Pages/SwapCard/AddWordPage.dart';
 import 'Pages/BottomNavigatorBars.dart';
 import 'Pages/Profile/profile.dart';
@@ -17,8 +18,8 @@ import 'Pages/SwapCard/Cardadd.dart';
 import 'Pages/LeaderBoard/LeaderBoard.dart';
 import 'Pages/SwapCard/UpdateWordPage.dart';
 import 'Pages/fetchWithApiWords/webapi.dart';
-import 'Pages/login_page.dart';
-import 'Pages/splash_page.dart';
+import 'Pages/LoginProcess/login_page.dart';
+import 'Pages/LoginProcess/splash_page.dart';
 import 'Service/Word_Service.dart';
 
 Future main() async {
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
     ),
   );
 }
+
 
 class listuser extends StatefulWidget {
   const listuser({super.key});
@@ -207,9 +209,10 @@ class _pasraState extends State<pasra> {
     );
 
   Widget buildUser() {
-    final provider = Provider.of<UserProvider>(context);
+    final provider = Provider.of<UserProvider>(context,listen: true);
     final users = provider.userss;
     if(users.username==null){
+      provider.getuser();
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

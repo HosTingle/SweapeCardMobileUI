@@ -7,6 +7,9 @@ class UserProvider extends ChangeNotifier {
 
   userservice userser=userservice();
   Users? sa;
+  Users? ilk = Users(
+    username: "sas",
+  );
   Users userss= Users();
   List<Users> _users = [];
   bool _isDragging = false;
@@ -20,9 +23,6 @@ class UserProvider extends ChangeNotifier {
   bool get isDragging => _isDragging;
   Offset get position => _position;
   double get angle => _angle;
-  UserProvider() {
-    getuser();
-  }
   void getuser() async{
     final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     int? dada=sharedPreferences.getInt("userId");
@@ -31,9 +31,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
   void clearData() {
-    userss = Users();
-    _users.clear();
-    notifyListeners();
+    userss.username=null;
   }
 
   void setScreenSize(Size screenSize) => _screenSize = screenSize;

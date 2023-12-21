@@ -12,7 +12,7 @@ import 'package:untitled4/Service/user_Service.dart';
 import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
 
-import '../login_page.dart';
+import '../LoginProcess/login_page.dart';
 
 
 
@@ -30,17 +30,8 @@ class MainPag extends StatefulWidget {
 
 
 class _MainPageState extends State<MainPag> {
-  userservice user=userservice();
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final size = MediaQuery
-          .of(context)
-          .size;
-      final provider = Provider.of<UserProvider>(context, listen: false);
-      provider.setScreenSize(size);
-      provider.getuser();
-    });
   }
   final double coverHeight = 280;
   final double profileHeight = 144;
@@ -49,6 +40,11 @@ class _MainPageState extends State<MainPag> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
     // Diğer çıkış işlemleri
+  }
+   signOut2() {
+    final provider = Provider.of<UserProvider>(context, listen: false);
+    provider.clearData();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -86,18 +82,16 @@ class _MainPageState extends State<MainPag> {
               Text(widget.user.username!, style: TextStyle(
                 color: Colors.black,
                 fontSize: 30
-
               )),
+              const SizedBox(height: 5),
               Text("${widget.user.name} ${widget.user.surname}", style: TextStyle(
                   color: Colors.black
               )),
-              const SizedBox(height: 20),
+              const SizedBox(height: 7),
               Text("${widget.user.description}", style: TextStyle(
                   color: Colors.black
               )),
-              const Divider(height: 20,color: Colors.black),
-              const SizedBox(height: 30),
-
+              SizedBox(height: 23,),
               /// -- MENU
               ProfileMenuWidget(title: "Edit Profile",icon:Icons.account_box,  onPress: ()async {Users? result=await Get.to(() => const UpdateProfileScreen(),arguments: widget.user);
               setState(() {
@@ -110,8 +104,8 @@ class _MainPageState extends State<MainPag> {
               } ),
               ProfileMenuWidget(title: "Settings", icon:Icons.settings , onPress: () {},),
               ProfileMenuWidget(title: "Premium Account", icon:Icons.verified_user_outlined, onPress: () {},),
-              const Divider(height: 60,color: Colors.black),
-              const SizedBox(height: 10),
+              const Divider(height: 80,color: Colors.black),
+
               ProfileMenuWidget(title: "Information", icon:Icons.info, onPress: () {}),
               ProfileMenuWidget(
                   title: "Logout",
@@ -129,9 +123,10 @@ class _MainPageState extends State<MainPag> {
                       confirm: Container(
                         height: 38,
                         child: ElevatedButton(
-                          onPressed: () => {
-                            signOut(),
-                          Get.offAll(() => LoginPage())
+                          onPressed:(){
+                            signOut();
+                            signOut2();
+                            Get.offAll(() => LoginPage());
                           },
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.black, shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0), // Dikdörtgenin kenar yuvarlaklığı
@@ -144,7 +139,7 @@ class _MainPageState extends State<MainPag> {
                       cancel: OutlinedButton(onPressed: () => {Navigator.pop(context)}, child: const Text("No")),
                     );
                   }),
-              SizedBox(height: 120)
+              SizedBox(height: 105)
             ],
           ),
         ),

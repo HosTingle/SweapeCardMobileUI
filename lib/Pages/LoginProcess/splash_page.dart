@@ -6,7 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'BottomNavigatorBars.dart';
+import '../BottomNavigatorBars.dart';
 import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     getValidationData().whenComplete(()async{
       Timer(
           Duration(seconds: 3),
-              () =>Get.to(finaluser==null && finalpassword==null ? LoginPage():BottomNavigators())
+              () =>Get.off(()=>finaluser==null && finalpassword==null ? LoginPage():BottomNavigators())
       );
     });
     super.initState();

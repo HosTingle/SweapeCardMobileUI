@@ -63,7 +63,10 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   animate_do: ^3.1.2
+
   lottie: ^2.7.0
+
+  intl_phone_field: ^3.2.0
 
 dev_dependencies:
   flutter_test:

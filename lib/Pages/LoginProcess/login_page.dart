@@ -6,12 +6,17 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled4/Pages/LoginProcess/register_page.dart';
 import 'package:untitled4/Service/user_Service.dart';
 
-import '../Model/Loginmodel.dart';
-import 'BottomNavigatorBars.dart';
+import '../../Model/Loginmodel.dart';
+import '../../Model/Users.dart';
+import '../../Service/register_service.dart';
+import '../../main.dart';
+import '../BottomNavigatorBars.dart';
 
 class LoginPage extends StatefulWidget {
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -32,10 +37,10 @@ class _LoginPageState extends State<LoginPage> {
       sharedPreferences.setString("username", user.username!);
       sharedPreferences.setString("password", user.password!);
       _showOverlay("Giriş Başarılı",200);
-      Get.to(() => BottomNavigators());
+      Get.off(() => BottomNavigators());
     }
     else {
-      _showOverlay("Kullanıcı adı veya şifre bulunamadı",2000);
+      _showOverlay("Kullanıcı adı veya şifre bulunamadı",200);
     }
   }
   @override
@@ -53,8 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 30,),
                 Container(
                   height: 200,
-                  width: 400,
-                  child: Lottie.network("https://lottie.host/94684192-802d-4b9f-8eaa-95f00555a134/zT82lcSxMm.json",width: 2000,height: 2000),
+                  width: 800,
+                  child: Lottie.network("https://lottie.host/b8eed89f-75cc-4bea-b640-a98df7d05bd1/d5T03vwl2U.json",width: 2000,height: 2000),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,9 +157,14 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.grey,fontSize: 16
                         ),),
                         SizedBox(width: 10,),
-                        Text("Sign up",style: TextStyle(
-                            color: Colors.white,fontSize: 16
-                        ),),
+                        InkWell(
+                          onTap: (){
+                            Get.to(()=>RegisterPage());
+                          },
+                          child: Text("Sign up",style: TextStyle(
+                              color: Colors.white,fontSize: 16
+                          ),),
+                        ),
                       ],
                     )
                   ],

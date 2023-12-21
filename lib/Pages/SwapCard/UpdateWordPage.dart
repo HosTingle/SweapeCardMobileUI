@@ -55,7 +55,6 @@ class _UpdateWordState extends State<UpdateWord> {
     receivedData.secondWord  = text1;
     receivedData.languageId=1;
     receivedData.showCounter=0;
-    receivedData.sentence="";
   }
   OverlayEntry? _overlayEntry;
   @override

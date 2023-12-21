@@ -71,6 +71,34 @@ class userservice {
     }
 
   }
+  Future<void> CreateUser(Users user) async {
+    var request={
+      "avatarId": 1,
+      "username": user.username.toString(),
+      "password": user.password.toString(),
+      "name": user.name.toString(),
+      "surname": user.surname.toString(),
+      "birthDate": DateFormat('yyyy-MM-dd').format(user.birthDate!),
+      "phone": user.phone.toString(),
+      "description": user.description.toString(),
+    };
+    print("fetch called");
+    String url="https://10.0.2.2:7193/api/Users/CreatUser";
+    final uri= Uri.parse(url);
+    final response=await http.post(uri, body:jsonEncode(request),headers: {
+      'Content-Type': 'application/json', // Content-Type başlığını ekleyin
+    },
+    );
+    if (response.statusCode == 200) {
+      // API yanıtı başarılı ise
+      print("completed");
+
+    } else {
+      // Hata durumu ile başa çıkma
+      throw Exception('Failed to load data from the API');
+    }
+
+  }
   Future<void> UpdateUser(Users user) async {
     var request={
     "userId": user.userId?.toInt(),

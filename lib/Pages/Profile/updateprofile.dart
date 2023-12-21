@@ -208,9 +208,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()){
-                            provider.getuser();
                             _submitForm();
                             userService.UpdateUser(receivedData);
+                            provider.getuser();
                             Get.back(result: receivedData);
                           }
                         },

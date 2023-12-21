@@ -219,7 +219,13 @@ class CardProvider extends ChangeNotifier {
     final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     int? dada=sharedPreferences.getInt("userId");
     _words=await wordService.fetchWords(dada);
-    pos= _words.last;
+    if(_words.isEmpty){
+
+    }
+    else{
+      pos= _words.last;
+    }
+
     notifyListeners();
   }
 }
