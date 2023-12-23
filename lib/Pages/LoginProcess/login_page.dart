@@ -250,7 +250,7 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.all(
             Radius.circular(18.0), // Köşeliliği ayarlamak için
           ),
-          borderSide: BorderSide(color: Colors.black, width: 2.0),
+          borderSide: BorderSide(color: Colors.white, width: 2.0),
         ),
       ),
     );

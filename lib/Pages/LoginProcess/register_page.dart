@@ -48,7 +48,19 @@ class _RegisterPageState extends State<RegisterPage> {
     } else if (value.length < 6) {
       return 'Şifre en az 6 karakter olmalıdır';
     }
-    if (value.isEmpty) {
+    else if (!RegExp(r'(?=.*[a-z])').hasMatch(value)) {
+      return 'Şifre en az bir küçük harf içermelidir';
+    }
+    else if (!RegExp(r'(?=.*[A-Z])').hasMatch(value)) {
+      return 'Şifre en az bir büyük harf içermelidir';
+    }
+    else if (!RegExp(r'(?=.*\d)').hasMatch(value)) {
+      return 'Şifre en az bir rakam içermelidir';
+    }
+    else if (!RegExp(r'(?=.*[!@#\$%^&*(),.?":{}|<>])').hasMatch(value)) {
+      return 'Şifre en az bir özel karakter içermelidir';
+    }
+    else if (value.isEmpty) {
       return 'Onay şifresi boş olamaz';
     } else if (value != _passwordController2.text) {
       return 'Şifreler uyuşmuyor';

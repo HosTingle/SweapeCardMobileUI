@@ -55,7 +55,7 @@ class userservice {
   }
   Future<List<Users>> fetchtenuser() async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/WordListWithOther";
+    String url="https://gokdenizgenc.site/api/Users/WordListWithOther";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {

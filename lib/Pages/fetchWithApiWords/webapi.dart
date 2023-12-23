@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:untitled4/Pages/fetchWithApiWords/eats.dart';
 import 'package:untitled4/Pages/fetchWithApiWords/ielts.dart';
 import 'package:untitled4/Pages/fetchWithApiWords/story.dart';
 import 'package:untitled4/Pages/fetchWithApiWords/toed.dart';
@@ -240,10 +241,9 @@ class _WebApiPageState extends State<WebApiPage> {
                           width: 200,
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
+                              Get.to(() => FoodsAndDrinksPage());
                             },
-                            child: Text("Yiyecekler"),
+                            child: Text("İçecekler ve Yiyecekler"),
                           ),
                         ),
                       ],

@@ -42,20 +42,21 @@ class _IeltsPageState extends State<IeltsPage> {
   String selectedLetter = 'a'; // Varsayılan olarak 'a' harfi seçilmiş
 
   final List<String> alphabet = List.generate(26, (index) => String.fromCharCode('a'.codeUnitAt(0) + index));
-
+  final Words receivedData = Get.arguments;
+  void _submitForm() {
+    receivedData.userId = dada;
+    receivedData.firstWord  = text1;
+    receivedData.secondWord  = text2;
+    receivedData.languageId=1;
+    receivedData.showCounter=0;
+    receivedData.sentence="";
+  }
+  wordservice wordser= wordservice();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context,listen: false);
-    final Words receivedData = Get.arguments;
-    void _submitForm() {
-      receivedData.userId = dada;
-      receivedData.firstWord  = text1;
-      receivedData.secondWord  = text2;
-      receivedData.languageId=1;
-      receivedData.showCounter=0;
-      receivedData.sentence="";
-    }
-    wordservice wordser= wordservice();
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(

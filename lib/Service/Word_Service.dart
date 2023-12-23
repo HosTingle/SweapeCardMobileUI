@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:intl/intl.dart';
 import 'package:untitled4/Model/Word.dart';
 import 'package:http/http.dart' as http;
 class wordservice {
@@ -35,7 +36,25 @@ class wordservice {
         languageId: 1,
       );
       return myWord;
+  }
+  Future<List<Words>> fetchsentence(String? word) async {
+    print("fetch called");
+    String url="https://api.wordnik.com/v4/word.json/$word/examples?includeDuplicates=false&useCanonical=true&limit=3&api_key=YOURAPIKEY";
+    final uri= Uri.parse(url);
+    final response=await http.get(uri);
+    if (response.statusCode == 200) {
+      // API yanıtı başarılı ise
+      final List<dynamic> parsedList = json.decode(response.body);
 
+      // Her bir Map'ı Words nesnesine dönüştürün
+      List<Words> wordsList = parsedList.map((map) => Words.fromJson(map)).toList();
+
+      print("completed");
+      return wordsList;
+    } else {
+      // Hata durumu ile başa çıkma
+      throw Exception('Failed to load data from the API');
+    }
 
   }
   Future<List<Words>> fetchWords(int? id) async {
