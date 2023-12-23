@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
       Get.off(() => BottomNavigators());
     }
     else {
-      _showOverlay("Kullanıcı adı veya şifre bulunamadı",200);
+      _showOverlay("Kullanıcı adı veya şifre bulunamadı",2000);
     }
   }
   @override
@@ -56,11 +56,6 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 30,),
-                Container(
-                  height: 200,
-                  width: 800,
-                  child: Lottie.network("https://lottie.host/b8eed89f-75cc-4bea-b640-a98df7d05bd1/d5T03vwl2U.json",width: 2000,height: 2000),
-                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -72,27 +67,31 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(height: 50,width: 183,decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.white, // Kenar rengi
-                            width: 1.5, // Kenar kalınlığı
-                          ),
-                          color: Colors.grey[900],
+                        Expanded(
+                          child: Container(height: 53,decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.white, // Kenar rengi
+                              width: 1.5, // Kenar kalınlığı
+                            ),
+                            color: Colors.grey[900],
 
-                        ),
-                          child: Image.asset("assets/images/face12.png",width: 2,height: 5,),
+                          ),
+                            child: Image.asset("assets/images/face12.png",width: 2,height: 5,),
+                          ),
                         ),
                         SizedBox(width: 10,),
-                        Container(height: 50,width: 183,decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: Colors.white, // Kenar rengi
-                            width: 1.5, // Kenar kalınlığı
+                        Expanded(
+                          child: Container(height: 53,decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.white, // Kenar rengi
+                              width: 1.5, // Kenar kalınlığı
+                            ),
+                            color: Colors.grey[900],
                           ),
-                          color: Colors.grey[900],
-                        ),
-                          child: Image.asset("assets/images/gogas.png",width: 10,height: 10,),
+                            child: Image.asset("assets/images/gogas.png",width: 10,height: 10,),
+                          ),
                         )
                       ],
                     ),
@@ -127,27 +126,45 @@ class _LoginPageState extends State<LoginPage> {
                       icon: FontAwesomeIcons.unlockKeyhole, controller: _passwordController,
                     ),
                     SizedBox(height: 40,),
-                    Container(
-                      width: 250,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
 
-                          padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 50.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0), // Yuvarlak kenarlık
-                          ),
-                          primary: Colors.white, // Buton rengini siyah yapar
+                        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 50.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0), // Yuvarlak kenarlık
                         ),
-
-                        onPressed: () {
-                          login();
-                        },
-                        child: const Text('Login Account',style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16
-                        )),
+                        primary: Colors.white, // Buton rengini siyah yapar
                       ),
+
+                      onPressed: () {
+                        login();
+                      },
+                      child: const Text('Login Account',style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16
+                      )),
+                    ),
+                    SizedBox(height: 35,),
+                    InkWell(
+                      onTap: () async {
+                        sa.username = _usernameController.text;
+                        sa.password = _passwordController.text;
+                        var user=await userser.loginhuser(sa);
+                        if(user.userId!=null){
+                          final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+                          sharedPreferences.setInt("userId", user.userId!);
+                          sharedPreferences.setString("username", user.username!);
+                          sharedPreferences.setString("password", user.password!);
+                          _showOverlay("Giriş Başarılı",200);
+                          Get.to(()=>BottomNavigators());
+                        }
+                        else {
+                          _showOverlay("Kullanıcı adı veya şifre bulunamadı",2000);
+                        }
+                      },
+                      child: Text("login",style: TextStyle(
+                          color: Colors.white,fontSize: 16
+                      ),),
                     ),
                     SizedBox(height: 35,),
                     Row(
@@ -159,6 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(width: 10,),
                         InkWell(
                           onTap: (){
+
                             Get.to(()=>RegisterPage());
                           },
                           child: Text("Sign up",style: TextStyle(

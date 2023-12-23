@@ -9,6 +9,7 @@ import '../Model/Loginmodel.dart';
 import '../Model/User.dart';
 import '../Model/Users.dart';
 class userservice {
+  String sa="https://gokdenizgenc.site/api/";
   Users sak=Users();
   Future<Users> loginhuser(Login log) async {
     var request={
@@ -16,7 +17,7 @@ class userservice {
       "password": log.password
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/LoginUser";
+    String url="https://gokdenizgenc.site/api/Users/LoginUser";
     final uri= Uri.parse(url);
     final response=await http.post(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
@@ -37,7 +38,7 @@ class userservice {
   }
   Future<Users> fetchuserid(int? id) async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/${id}GetUserwithOthers";
+    String url="https://gokdenizgenc.site/api/Users/${id}GetUserwithOthers";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {
@@ -83,7 +84,7 @@ class userservice {
       "description": user.description.toString(),
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/CreatUser";
+    String url="https://gokdenizgenc.site/api/Users/CreatUser";
     final uri= Uri.parse(url);
     final response=await http.post(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
@@ -115,7 +116,7 @@ class userservice {
       "wordCounterId": user.wordCounterId!.toInt(),
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Users/UpdateUser";
+    String url="https://gokdenizgenc.site/api/Users/UpdateUser";
     final uri= Uri.parse(url);
     final response=await http.put(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
@@ -133,7 +134,7 @@ class userservice {
   }
   Future<List<Words>?>? deleteWords(int? id) async{
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/word/deleteword?id=$id";
+    String url="https://gokdenizgenc.site/api/word/deleteword?id=$id";
     final uri= Uri.parse(url);
     final response=await http.delete(uri);
     if(response.statusCode==200){
@@ -145,7 +146,7 @@ class userservice {
   }
   Future<List<Words>?>? updateWords(int? id) async{
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/word/updatewordshowcounter?id=$id";
+    String url="https://gokdenizgenc.site/api/word/updatewordshowcounter?id=$id";
     final uri= Uri.parse(url);
     final response=await http.put(uri);
     if(response.statusCode==200){

@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:intl/intl.dart';
 import 'package:untitled4/Model/Word.dart';
 import 'package:http/http.dart' as http;
 class wordservice {
   Future<Words?> fetchWord() async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Word/17GetByWordId";
+    String url="https://gokdenizgenc.site/api/Word/17GetByWordId";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {
@@ -59,7 +58,7 @@ class wordservice {
   }
   Future<List<Words>> fetchWords(int? id) async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/word/getallword?id=$id";
+    String url="https://gokdenizgenc.site/api/word/getallword?id=$id";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {
@@ -79,7 +78,7 @@ class wordservice {
   }
   Future<List<Words>> fetchUser(int? id) async {
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/users/${id}getbyuserid";
+    String url="https://gokdenizgenc.site/api/users/${id}getbyuserid";
     final uri= Uri.parse(url);
     final response=await http.get(uri);
     if (response.statusCode == 200) {
@@ -98,7 +97,7 @@ class wordservice {
   }
    Future<List<Words>?>? deleteWords(int? id) async{
      print("fetch called");
-     String url="https://10.0.2.2:7193/api/word/deleteword?id=$id";
+     String url="https://gokdenizgenc.site/api/word/deleteword?id=$id";
      final uri= Uri.parse(url);
      final response=await http.delete(uri);
      if(response.statusCode==200){
@@ -110,7 +109,7 @@ class wordservice {
    }
   Future<List<Words>?>? updateWords(int? id) async{
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/word/updatewordshowcounter?id=$id";
+    String url="https://gokdenizgenc.site/api/word/updatewordshowcounter?id=$id";
     final uri= Uri.parse(url);
     final response=await http.put(uri);
     if(response.statusCode==200){
@@ -132,7 +131,7 @@ class wordservice {
       "languageId":words?.languageId!.toInt(),
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Word/CreatWord";
+    String url="https://gokdenizgenc.site/api/Word/CreatWord";
     final uri= Uri.parse(url);
     final response=await http.post(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
@@ -165,7 +164,7 @@ class wordservice {
       "languageId":words?.languageId!.toInt(),
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Word/UpdateWord";
+    String url="https://gokdenizgenc.site/api/Word/UpdateWord";
     final uri= Uri.parse(url);
     final response=await http.put(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
@@ -193,7 +192,7 @@ class wordservice {
       "languageId":words?.languageId!.toInt(),
     };
     print("fetch called");
-    String url="https://10.0.2.2:7193/api/Word/CreatWitChatGpt";
+    String url="https://gokdenizgenc.site/api/Word/CreatWitChatGpt";
     final uri= Uri.parse(url);
     final response=await http.post(uri, body:jsonEncode(request),headers: {
       'Content-Type': 'application/json', // Content-Type başlığını ekleyin
