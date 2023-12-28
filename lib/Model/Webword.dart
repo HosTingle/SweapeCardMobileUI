@@ -1,8 +1,8 @@
 class Word {
-  final String english;
-  final String turkish;
-  final String pronunciation;
+   String? english;
+   String? turkish;
+   String? pronunciation;
 
-  const Word(
-      {required this.english, required this.turkish, required this.pronunciation});
+  Word(
+      { this.english,  this.turkish,  this.pronunciation});
 }

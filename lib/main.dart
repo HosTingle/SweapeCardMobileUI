@@ -11,6 +11,7 @@ import 'package:untitled4/provider/card_provider.dart';
 import 'package:untitled4/Pages/SwapCard/SwapCard.dart';
 import 'package:untitled4/provider/user_prodiver.dart';
 import 'Pages/LoginProcess/register_page.dart';
+import 'Pages/Profile/profilemenu.dart';
 import 'Pages/SwapCard/AddWordPage.dart';
 import 'Pages/BottomNavigatorBars.dart';
 import 'Pages/Profile/profile.dart';
@@ -30,6 +31,7 @@ Future main() async {
   ]);
   HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -79,7 +81,9 @@ class _listuserState extends State<listuser> {
   Widget tenuser(){
     final provider = Provider.of<UserProvider>(context);
     final userlistee = provider.use;
-    return userlistee.isEmpty? Center(
+    if(userlistee.isEmpty){
+      provider.gettenuser();
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -94,9 +98,12 @@ class _listuserState extends State<listuser> {
             )
           ],
         ),
-      ):
-     leader(
+      );
+    }
+    else{
+      return leader(
           users: userlistee);
+    }
   }
 
 }
@@ -213,20 +220,105 @@ class _pasraState extends State<pasra> {
     final users = provider.userss;
     if(users.username==null){
       provider.getuser();
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text("Bilgiler yükleniyor",style: TextStyle(
-                  fontSize: 40,color: Colors.black
+      return SafeArea(
+        child: Container(
+          color: Colors.white,
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.02,),
+              /// -- IMAGE
+              Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.height * 0.12,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(  // Add border styling here
+                        color: Colors.black,
+                        width: 2.0,  // Adjust the border width as needed
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 7,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                      width: MediaQuery.of(context).size.height * 0.030,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(MediaQuery.of(context).size.height * 0.1),
+                        color: Colors.white,
+                        border: Border.all(  // Add border styling here
+                          color: Colors.black,
+                          width: 1.0,  // Adjust the border width as needed
+                        ),
+                      ),
+                      child: Center(child: const FaIcon(FontAwesomeIcons.userLarge, color: Colors.black,size: 18,)),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+              Text("", style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30
               )),
-            ),
-            SpinKitPouringHourGlassRefined(
-              color:Colors.black,
-              size:200,
-            )
-          ],
+              const SizedBox(height: 5),
+              Text("", style: TextStyle(
+                  color: Colors.black
+              )),
+              const SizedBox(height: 7),
+              Text("", style: TextStyle(
+                  color: Colors.black
+              )),
+              SizedBox(height: 23,),
+              /// -- MENU
+              ProfileMenuWidget(title: "Edit Profile",icon:Icons.account_box,  onPress: () {
+              } ),
+              ProfileMenuWidget(title: "Settings", icon:Icons.settings , onPress: () {},),
+              ProfileMenuWidget(title: "Premium Account", icon:Icons.verified_user_outlined, onPress: () {},),
+              const Divider(height: 30,color: Colors.black,thickness: 3),
+
+              ProfileMenuWidget(title: "Information", icon:Icons.info, onPress: () {}),
+              ProfileMenuWidget(
+                  title: "Logout",
+                  icon:Icons.arrow_back,
+                  textColor: Colors.red,
+                  endIcon: false,
+                  onPress: () {
+                    Get.defaultDialog(
+                      title: "LOGOUT",
+                      titleStyle: const TextStyle(fontSize: 20),
+                      content: const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15.0),
+                        child: Text("Are you sure want to exit ?"),
+                      ),
+                      confirm: Container(
+                        height: 38,
+                        child: ElevatedButton(
+                          onPressed:(){
+
+                            Get.offAll(() => LoginPage());
+                          },
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0), // Dikdörtgenin kenar yuvarlaklığı
+                          ),),
+                          child: const Text("Yes",style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20
+                          )),
+                        ),
+                      ),
+                      cancel: OutlinedButton(onPressed: () => {}, child: const Text("No",style: TextStyle(color: Colors.black),)),
+                    );
+                  }),
+            ],
+          ),
         ),
       );
     }

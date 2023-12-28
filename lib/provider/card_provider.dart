@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+//import 'package:flutter_tts/flutter_tts.dart';//
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/Service/Word_Service.dart';
 
@@ -10,7 +11,7 @@ import '../Model/Word.dart';
 enum CardStatus { like, dislike, superLike }
 
 class CardProvider extends ChangeNotifier {
-  final FlutterTts flutterTts= FlutterTts();
+ final FlutterTts flutterTts= FlutterTts();
   Words? pos;
   Words? saaaa;
   Words wordss= Words();
@@ -161,7 +162,7 @@ class CardProvider extends ChangeNotifier {
     else if(a-1>0){
       String sa=_words[a-1].secondWord!;
       pos=_words[a-1];
-      speak(sa);
+    speak(sa);
     }
     else{
 
@@ -185,7 +186,7 @@ class CardProvider extends ChangeNotifier {
     if(a-2>0){
       String sa=_words[a-2].secondWord!;
       pos=_words[a-2];
-      speak(sa);
+     speak(sa);
     }
     else if(a-1>0){
       String sa=_words[a-1].secondWord!;

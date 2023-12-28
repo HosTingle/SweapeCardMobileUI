@@ -26,6 +26,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   userservice userser=userservice();
   OverlayEntry? _overlayEntry;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _overlayEntry = _createOverlayEntry("Kullanıcı adı ve veya sifre yanlıs");
+  }
   Login sa=Login();
   void login() async{
     sa.username = _usernameController.text;
@@ -36,12 +43,16 @@ class _LoginPageState extends State<LoginPage> {
       sharedPreferences.setInt("userId", user.userId!);
       sharedPreferences.setString("username", user.username!);
       sharedPreferences.setString("password", user.password!);
-      _showOverlay("Giriş Başarılı",200);
       Get.off(() => BottomNavigators());
     }
     else {
-      _showOverlay("Kullanıcı adı veya şifre bulunamadı",2000);
+      _showOverlay();
     }
+  }
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -145,28 +156,6 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                     ),
                     SizedBox(height: 35,),
-                    InkWell(
-                      onTap: () async {
-                        sa.username = _usernameController.text;
-                        sa.password = _passwordController.text;
-                        var user=await userser.loginhuser(sa);
-                        if(user.userId!=null){
-                          final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-                          sharedPreferences.setInt("userId", user.userId!);
-                          sharedPreferences.setString("username", user.username!);
-                          sharedPreferences.setString("password", user.password!);
-                          _showOverlay("Giriş Başarılı",200);
-                          Get.to(()=>BottomNavigators());
-                        }
-                        else {
-                          _showOverlay("Kullanıcı adı veya şifre bulunamadı",2000);
-                        }
-                      },
-                      child: Text("login",style: TextStyle(
-                          color: Colors.white,fontSize: 16
-                      ),),
-                    ),
-                    SizedBox(height: 35,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -195,40 +184,39 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  void _showOverlay(String sa,int say) {
-    // Container oluştur
-
-    // Başarılı mesajı oluştur
-    final successMessage = sa;
-    final overlayMessage = Material(
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Text(
-          successMessage,
-          style: const TextStyle(color: Colors.black, fontSize: 16.0),
+  OverlayEntry _createOverlayEntry(String mesaj) {
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        bottom: MediaQuery.of(context).size.width*0.24,
+        left: MediaQuery.of(context).size.width*0.16,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: MediaQuery.of(context).size.width*0.7,
+            height: MediaQuery.of(context).size.height*0.06,
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Center(
+              child: Text(
+                mesaj,
+                style: TextStyle(color: Colors.black,fontSize: 16),
+              ),
+            ),
+          ),
         ),
       ),
     );
-
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          overlayMessage,
-          const SizedBox(height: 100,)
-        ],
-      ),
-    );
-
+  }
+  void _showOverlay() {
     Overlay.of(context)?.insert(_overlayEntry!);
 
-    Timer(Duration(milliseconds: say), () {
+    // Eğer var olan bir timer varsa iptal et
+    _timer?.cancel();
+
+    _timer = Timer(Duration(seconds: 2), () {
       _overlayEntry?.remove();
     });
   }

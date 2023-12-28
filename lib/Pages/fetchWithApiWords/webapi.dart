@@ -26,318 +26,347 @@ class _WebApiPageState extends State<WebApiPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: Scaffold(
+
             body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 50,),
-                  Text("Sınavlar",style: TextStyle(
-                      fontSize: 20,color: Colors.black
-                  )),
-                  SizedBox(height: 5,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => ToeflPage(),arguments: widget.wordc);
-                            },
-                            child: Text("TOEFL"),
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 50,),
+                    Text("Exams",style: TextStyle(
+                        fontSize: 25,color: Colors.black
+                    )),
+                    SizedBox(height: 5,),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
                           ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => YokdilPage(),arguments: widget.wordc);
-
-                            },
-                            child: Text("YÖKDİL"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => IeltsPage(),arguments: widget.wordc);
-                            },
-                            child: Text("IELTS"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Text("Seviye Göre",style: TextStyle(
-                      fontSize: 20,color: Colors.black
-                  )),
-                  SizedBox(height: 5,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => WordsByLevelsPage(seviye: "A1"),arguments: widget.wordc);
-
-                            },
-                            child: Text("A1"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => WordsByLevelsPage(seviye: "A2"),arguments: widget.wordc);
-                            },
-                            child: Text("A2"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => WordsByLevelsPage(seviye: "B1"),arguments: widget.wordc);
-                            },
-                            child: Text("B1"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => WordsByLevelsPage(seviye: "B2"),arguments: widget.wordc);
-                            },
-                            child: Text("B2"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => WordsByLevelsPage(seviye: "C1"),arguments: widget.wordc);
-                            },
-                            child: Text("C1"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Text("Temel kelimeler",style: TextStyle(
-                      fontSize: 20,color: Colors.black
-                  )),
-                  SizedBox(height: 5,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
-                            },
-                            child: Text("Aylar"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
-                            },
-                            child: Text("Sayılar"),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Get.to(() => FoodsAndDrinksPage());
-                            },
-                            child: Text("İçecekler ve Yiyecekler"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Text("İngilizce Hikayeler",style: TextStyle(
-                    fontSize: 20,color: Colors.black
-                  )),
-                  SizedBox(height: 5,),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
-                            },
-                            child: Stack(
-                                children:[
-                                  Center(child: Image.asset("assets/images/s123.jpeg")),
-                                  const Positioned(
-                                    child: Center(
-                                    ),
-                                  ),]
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 200,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => WebScraping()));
-                            },
-                            child: Stack(
-                                children:[
-                                  Center(child: Image.asset("assets/images/sa12.jpeg")),
-                                  const Positioned(
-                                    child: Center(
-
-                                    ),
-                                  ),]
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black,width: 5),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(Radius.circular(20))),
-                          height: 100,
-                          width: 150,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage()));
-                            },
-                             child: Container(
-                              width: 300.0,
-                              height: 150.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                image: DecorationImage(
-
-                                  image: AssetImage("assets/images/avatar123.jpeg"),
-                                  fit: BoxFit.cover,
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => ToeflPage(),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.39, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/tofels.png"),
                               ),
+                            ),
                           ),
-                        ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => YokdilPage(),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/yökdil.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => IeltsPage(),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.15, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/ielts.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 20,),
+                    Text("By Level",style: TextStyle(
+                        fontSize: 25,color: Colors.black
+                    )),
+                    SizedBox(height: 5,),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => WordsByLevelsPage(seviye: "A1"),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/A11.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => WordsByLevelsPage(seviye: "A2"),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/A22.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => WordsByLevelsPage(seviye: "B1"),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/B11.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => WordsByLevelsPage(seviye: "B2"),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/B22.png"),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(
+                            width: 5,
+                          ),Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Get.to(() => WordsByLevelsPage(seviye: "C1"),arguments: widget.wordc);
+                              },
+                              child: Transform.scale(
+                                scale: 1.2, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/c1asa.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Text("Basic Words",style: TextStyle(
+                        fontSize: 25,color: Colors.black
+                    )),
+                    SizedBox(height: 5,),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => WebScraping()));
+                              },
+                              child: Transform.scale(
+                                scale: 1.6, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/maranaa.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => WebScraping()));
+                              },
+                              child: Transform.scale(
+                                scale: 1.8, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/zazaza.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => WebScraping()));
+                              },
+                              child: Transform.scale(
+                                scale: 1.24, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/yemeknee.png"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Text("Stories",style: TextStyle(
+                      fontSize: 25,color: Colors.black
+                    )),
+                    SizedBox(height: 5,),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => WebScraping()));
+                              },
+                              child: Transform.scale(
+                                scale: 1.1, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/s123.jpeg"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => WebScraping()));
+                              },
+                              child: Transform.scale(
+                                scale: 1.1, // İstediğiniz ölçek faktörünü ayarlayabilirsiniz
+                                child: Image.asset("assets/images/sa12.jpeg"),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.18,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => StoryPage()));
+                              },
+                              child: Transform.scale(
+                                scale: 0.96,
+                                child: Image.asset("assets/images/pamak.jpg"),
+                              ),
+                              ),
+                            ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             ),

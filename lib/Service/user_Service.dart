@@ -93,7 +93,7 @@ class userservice {
     if (response.statusCode == 200) {
       // API yanıtı başarılı ise
       print("completed");
-
+      response.body;
     } else {
       // Hata durumu ile başa çıkma
       throw Exception('Failed to load data from the API');

@@ -22,6 +22,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   Users sa = Users();
+  Login sas = Login();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordController2 = TextEditingController();
@@ -31,7 +32,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   userservice userser=userservice();
-  OverlayEntry? _overlayEntry;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   void _submitForm() {
     sa?.username = _usernameController.text;
@@ -124,27 +124,31 @@ class _RegisterPageState extends State<RegisterPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(height: 50,width: 183,decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.white, // Kenar rengi
-                              width: 1.5, // Kenar kalınlığı
-                            ),
-                            color: Colors.grey[900],
+                          Expanded(
+                            child: Container(height: 53,decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.white, // Kenar rengi
+                                width: 1.5, // Kenar kalınlığı
+                              ),
+                              color: Colors.grey[900],
 
-                          ),
-                            child: Image.asset("assets/images/face12.png",width: 2,height: 5,),
+                            ),
+                              child: Image.asset("assets/images/face12.png",width: 2,height: 5,),
+                            ),
                           ),
                           SizedBox(width: 10,),
-                          Container(height: 50,width: 183,decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: Colors.white, // Kenar rengi
-                              width: 1.5, // Kenar kalınlığı
+                          Expanded(
+                            child: Container(height: 53,decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: Colors.white, // Kenar rengi
+                                width: 1.5, // Kenar kalınlığı
+                              ),
+                              color: Colors.grey[900],
                             ),
-                            color: Colors.grey[900],
-                          ),
-                            child: Image.asset("assets/images/gogas.png",width: 10,height: 10,),
+                              child: Image.asset("assets/images/gogas.png",width: 10,height: 10,),
+                            ),
                           )
                         ],
                       ),
@@ -159,6 +163,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ]),
                       const SizedBox(height: 8.0),
                       CustomTextField(
+
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Username boş olamaz';
@@ -169,7 +174,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                         obsn: false,
                         hintText: '',
-                        icon:FontAwesomeIcons.userLarge, controller: _usernameController,
+                        icon:FontAwesomeIcons.userLarge,
+                        controller: _usernameController,
                       ),
                       const SizedBox(height: 8.0),
                       Row(
@@ -357,13 +363,12 @@ class _RegisterPageState extends State<RegisterPage> {
                             primary: Colors.white, // Buton rengini siyah yapar
                           ),
 
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _submitForm();
-                              userser.CreateUser(sa!);
-                              Get.offAll(() => LoginPage());
-                            }
-
+                          onPressed: (){
+                              if (_formKey.currentState!.validate()) {
+                                _submitForm();
+                                userser.CreateUser(sa!);
+                                Get.offAll(() => LoginPage());
+                              }
                           },
                           child: const Text('Sign Up',style: TextStyle(
                               color: Colors.black,
@@ -384,43 +389,6 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-  void _showOverlay(String sa,int say) {
-    // Container oluştur
-
-    // Başarılı mesajı oluştur
-    final successMessage = sa;
-    final overlayMessage = Material(
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Text(
-          successMessage,
-          style: const TextStyle(color: Colors.black, fontSize: 16.0),
-        ),
-      ),
-    );
-
-    _overlayEntry = OverlayEntry(
-      builder: (context) => Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          overlayMessage,
-          const SizedBox(height: 100,)
-        ],
-      ),
-    );
-
-    Overlay.of(context)?.insert(_overlayEntry!);
-
-    Timer(Duration(milliseconds: say), () {
-      _overlayEntry?.remove();
-    });
-  }
 
 }
 class CustomTextField extends StatelessWidget {
@@ -440,6 +408,9 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
+        onChanged: (value) {
+
+        },
         validator: validator ,
         keyboardType: keyboardType,
         onTap: onTap,

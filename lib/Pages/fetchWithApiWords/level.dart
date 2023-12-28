@@ -54,7 +54,7 @@ class _WordsByLevelsPageState extends State<WordsByLevelsPage> {
       appBar: AppBar(
         leading: IconButton(onPressed: () { Get.back();provider.resetUsers();}, icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: _buildBody(),
     );
@@ -101,7 +101,7 @@ class _WordsByLevelsPageState extends State<WordsByLevelsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                      articles[index].english,
+                      articles[index].english!,
                       style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center
                   ),
                   SizedBox(
@@ -119,8 +119,8 @@ class _WordsByLevelsPageState extends State<WordsByLevelsPage> {
                     height: 50.0,
                     child: ElevatedButton(
                       onPressed: () {
-                        text1 = articles[index].turkish;
-                        text2 = articles[index].english;
+                        text1 = articles[index].turkish!;
+                        text2 = articles[index].english!;
                         _submitForm();
                         wordser.addWords(receivedData);
                         // Butona tıklanınca yapılacak işlemler

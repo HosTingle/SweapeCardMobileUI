@@ -27,23 +27,28 @@ class ProfileMenuWidget extends StatelessWidget {
     return ListTile(
       onTap: onPress,
       leading: Container(
-        width: 40,
-        height: 40,
+        height: MediaQuery.of(context).size.height * 0.03,
+        width: MediaQuery.of(context).size.width * 0.06,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(100),
+          borderRadius: BorderRadius.circular(50),
           color: Colors.black,
         ),
-        child: Icon(icon, color: Colors.white),
+        child: Icon(icon, color: Colors.white,size: 16),
       ),
-      title: Text(title, style: Theme.of(context).textTheme.bodyText1?.apply(color: textColor)),
+      title: Text(title,
+        style: TextStyle(
+          fontSize: 15
+        ),
+
+      ),
       trailing: endIcon? Container(
-          width: 30,
-          height: 30,
+        height: MediaQuery.of(context).size.height * 0.04,
+        width: MediaQuery.of(context).size.height * 0.04,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: Colors.white,
           ),
-          child: const FaIcon(FontAwesomeIcons.angleRight,color: Colors.black),): null,
+          child: const FaIcon(FontAwesomeIcons.angleRight,color: Colors.black,size: 18),): null,
     );
   }
 }

@@ -55,11 +55,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         backgroundColor: Colors.black,
         leading: IconButton(
             onPressed:() {
-              provider.getuser();
           Get.back();
 
           },
-            icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
+            icon: const FaIcon(FontAwesomeIcons.arrowLeft,color: Colors.white,)),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -210,7 +209,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           if (_formKey.currentState!.validate()){
                             _submitForm();
                             userService.UpdateUser(receivedData);
-                            provider.getuser();
                             Get.back(result: receivedData);
                           }
                         },

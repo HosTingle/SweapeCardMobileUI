@@ -30,6 +30,13 @@ class UserProvider extends ChangeNotifier {
     _users=await userser.fetchtenuser();
     notifyListeners();
   }
+  void gettenuser() async{
+    _users=await userser.fetchtenuser();
+    final SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+    int? dada=sharedPreferences.getInt("userId");
+    userss=await userser.fetchuserid(dada);
+    notifyListeners();
+  }
   void clearData() {
     userss.username=null;
   }

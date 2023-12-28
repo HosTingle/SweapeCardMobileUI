@@ -60,16 +60,20 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(height: 100,),
             ElevatedButton(
+
               onPressed: () {
                 Get.to(()=>MainPage(),);
                 // Butona tıklandığında yapılacak işlemler
               },
               style: ElevatedButton.styleFrom(
-                shape: LinearBorder(),
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0), // Kenar yuvarlaklığı ayarlayın
+                ),
                 minimumSize: Size(200, 70),
                 primary: Colors.black, // Buton rengini siyah yapar
               ),
-              child: Text('Başla', style: TextStyle(color: Colors.white)),
+              child: Text('Start', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import '../../Model/Word.dart';
 import '../../provider/card_provider.dart';
 
@@ -23,7 +23,7 @@ class SwapCard extends StatefulWidget {
 }
 
 class _SwapCardState extends State<SwapCard> {
-  final FlutterTts flutterTts= FlutterTts();
+ final FlutterTts flutterTts= FlutterTts();
   void speak(String asas) async{
      await flutterTts.setLanguage("en-US");
      await flutterTts.setPitch(1.2);
@@ -154,7 +154,7 @@ class _SwapCardState extends State<SwapCard> {
           opacity: opacity,
         );
 
-        return Positioned(top: 64, right: 50, child: child);
+        return Positioned(top: 44, right: 50, child: child);
       case CardStatus.superLike:
         final child = Center(
             child: buildStamp(
@@ -258,10 +258,10 @@ class _SwapCardState extends State<SwapCard> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           IconButton(
-            icon:const FaIcon(FontAwesomeIcons.microphone),
+            icon:const FaIcon(FontAwesomeIcons.microphone,color: Colors.black),
             onPressed: () {
               String nonNullableString = widget.words.secondWord!;
-              speak(nonNullableString);
+             speak(nonNullableString);
             },
             iconSize: 30.0, // İkonun boyutu
           ),

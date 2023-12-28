@@ -57,6 +57,7 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
   }
   wordservice wordser= wordservice();
   OverlayEntry? _overlayEntry;
+  GlobalKey<FormState> _formKe = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<CardProvider>(context,listen: false);
@@ -68,117 +69,138 @@ class _GoogleTranslateState extends State<GoogleTranslate> {
           backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.black,
-            leading: IconButton(onPressed: () { translated="";Get.back();provider.resetUsers();}, icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
+            leading: IconButton(onPressed: () { translated="";Get.back();provider.resetUsers();}, icon: const FaIcon(FontAwesomeIcons.arrowLeft,color: Colors.white)),
             centerTitle: true,
           ),
           body: Padding(
             padding: const EdgeInsets.all(26.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('English', textAlign: TextAlign.center),
+            child: Form(
+              key:_formKe,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('English', textAlign: TextAlign.center),
 
-                TextFormField(
-                  controller:firstTextFieldController2 ,
-                  decoration: const InputDecoration(
-                    hintText: 'Text',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(40))
-                    ),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 10),
-                        borderRadius: BorderRadius.all(Radius.circular(40))
-                    ),
-                  ),
-                  style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  onChanged: (sa) async {
-                    text1 = sa;
-                    const apiKey = 'AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
-                    const to = 'tr';
-                    final url = Uri.parse(
-                      'https://translation.googleapis.com/language/translate/v2'
-                          '?q=$sa&target=$to&key=$apiKey',
-                    );
-                    final response = await http.post(url);
+                  TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Kelime boş bırakılamaz';
+                        }
 
-                    if (response.statusCode == 200) {
-                      final body = json.decode(response.body);
-                      final translations = body['data']['translations'] as List;
-                      final translation = HtmlEscape().convert(
-                        translations.first['translatedText'],
+                        else if (value.length < 2) {
+                          return 'Kelime en az 2 karakter olmalıdır';
+                        }
+                      },
+                    controller:firstTextFieldController2 ,
+                    decoration: const InputDecoration(
+                      hintText: 'Text',
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(40))
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 10),
+                          borderRadius: BorderRadius.all(Radius.circular(40))
+                      ),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (sa) async {
+                      text1 = sa;
+                      const apiKey = 'AIzaSyDy0CmAlKCA5kYrQujDMGKblMSsZCrW9mE';
+                      const to = 'tr';
+                      final url = Uri.parse(
+                        'https://translation.googleapis.com/language/translate/v2'
+                            '?q=$sa&target=$to&key=$apiKey',
                       );
-                      setState(() {
-                        translated = translation;
-                      });
-                    }
-                  }),
+                      final response = await http.post(url);
 
-                const SizedBox(height: 40), // Add some spacing between the text fields
-                const Text('Turkish', textAlign: TextAlign.center),
-                TextFormField(
-                  controller: firstTextFieldController,
-                  decoration: const InputDecoration(
-                    hintText: 'Text',
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.all(Radius.circular(40))
-                    ),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 10),
-                      borderRadius: BorderRadius.all(Radius.circular(40))
-                    ),
-                  ),
-                  style: const TextStyle(
-                    fontSize: 30,
-                    color: Colors.black,
-                  ),
-
-
-                ),
-                const SizedBox(height: 40),
-
-                ElevatedButton(
-                  onPressed: () async {
-                    _submitForm();
-                    bool sas=await wordser.addWords(receivedData);
-                    translated="";
-                    text1="";
-                    firstTextFieldController.clear();
-                    firstTextFieldController2.clear();
-                    _showOverlay();
-                    if(sas==true){
-                      setState(() {
-                        _mesaj="Kelime eklendi";
-                      });
-                    }
-                    else{
-                      if(sas==true){
+                      if (response.statusCode == 200) {
+                        final body = json.decode(response.body);
+                        final translations = body['data']['translations'] as List;
+                        final translation = HtmlEscape().convert(
+                          translations.first['translatedText'],
+                        );
                         setState(() {
-                          _mesaj="Kelime eklenemedi";
+                          translated = translation;
                         });
                       }
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0), // Kenar yuvarlama miktarını burada belirtin
+                    }),
+
+                  const SizedBox(height: 40), // Add some spacing between the text fields
+                  const Text('Turkish', textAlign: TextAlign.center),
+                  TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Kelime boş bırakılamaz';
+                      }
+
+                      else if (value.length < 2) {
+                        return 'Kelime en az 2 karakter olmalıdır';
+                      }
+                    },
+                    controller: firstTextFieldController,
+                    decoration: const InputDecoration(
+                      hintText: 'Text',
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(40))
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(width: 10),
+                        borderRadius: BorderRadius.all(Radius.circular(40))
+                      ),
+                    ),
+                    style: const TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
                     ),
 
-                    minimumSize: Size(150, 40),
-                    elevation: 3,
-                    primary: Colors.black, // Buton rengini siyah yapar
+
                   ),
-                  child: const FaIcon(FontAwesomeIcons.plusCircle),
-                ),
+                  const SizedBox(height: 40),
 
-              ],
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKe.currentState!.validate()) {
+                        _submitForm();
+                        bool sas = await wordser.addWords(receivedData);
+                        translated = "";
+                        text1 = "";
+                        firstTextFieldController.clear();
+                        firstTextFieldController2.clear();
+                        _showOverlay();
+                        if (sas == true) {
+                          setState(() {
+                            _mesaj = "Kelime eklendi";
+                          });
+                        }
+                        else {
+                          if (sas == true) {
+                            setState(() {
+                              _mesaj = "Kelime eklenemedi";
+                            });
+                          }
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0), // Kenar yuvarlama miktarını burada belirtin
+                      ),
+
+                      minimumSize: Size(150, 40),
+                      elevation: 3,
+                      primary: Colors.black, // Buton rengini siyah yapar
+                    ),
+                    child: const FaIcon(FontAwesomeIcons.plusCircle,color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-
           )),
 
     );

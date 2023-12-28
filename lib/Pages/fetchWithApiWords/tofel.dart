@@ -57,7 +57,7 @@ class _ToeflPageState extends State<ToeflPage> {
         home: SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 automaticallyImplyLeading: true,
                 leading: IconButton(onPressed: () { Get.back();provider.resetUsers();}, icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
                 actions: [
@@ -117,7 +117,7 @@ class _ToeflPageState extends State<ToeflPage> {
 
                               children: [
                                 Text(
-                                  snapshot.data![index].english,
+                                  snapshot.data![index].english!,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 SizedBox(
@@ -134,8 +134,8 @@ class _ToeflPageState extends State<ToeflPage> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    text1=snapshot.data![index].turkish;
-                                    text2= snapshot.data![index].english;
+                                    text1=snapshot.data![index].turkish!;
+                                    text2= snapshot.data![index].english!;
                                     _submitForm();
                                     wordser.addWords(receivedData);
                                     // Butona tıklanınca yapılacak işlemler

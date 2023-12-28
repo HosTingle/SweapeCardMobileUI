@@ -55,8 +55,7 @@ class _FoodsAndDrinksPageState extends State<FoodsAndDrinksPage> {
       home: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.white,
             automaticallyImplyLeading: true,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
@@ -95,7 +94,7 @@ class _FoodsAndDrinksPageState extends State<FoodsAndDrinksPage> {
                           children: [
                             Center(
                               child: Text(
-                                snapshot.data![index].english,
+                                snapshot.data![index].english!,
                                 style: TextStyle(fontWeight: FontWeight.bold,),
                                 textAlign: TextAlign.center,
                               ),
@@ -111,10 +110,13 @@ class _FoodsAndDrinksPageState extends State<FoodsAndDrinksPage> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                text1=snapshot.data![index].turkish;
-                                text2= snapshot.data![index].english;
+                                text1=snapshot.data![index].turkish!;
+                                text2= snapshot.data![index].english!;
                                 _submitForm();
                                 wordser.addWords(words);
+                                setState(() {
+                                  snapshot.data!.removeAt(index);
+                                });
                               },
                               child: Icon(
                                 Icons.add,

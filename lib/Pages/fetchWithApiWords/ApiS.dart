@@ -46,7 +46,7 @@ class _WebScrapingState extends State<WebScraping> {
         home: SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.white,
                 leading: IconButton(onPressed: () => Navigator.pop(context), icon: const FaIcon(FontAwesomeIcons.arrowLeft)),
                 title: const Text("Words", style: TextStyle(
                     color: Colors.white
@@ -93,7 +93,7 @@ class _WebScrapingState extends State<WebScraping> {
                               children: [
                                 Center(
                                   child: Text(
-                                    snapshot.data![index].english,
+                                    snapshot.data![index].english!,
                                     style: TextStyle(fontWeight: FontWeight.bold,),
                                   ),
                                 ),
@@ -108,8 +108,8 @@ class _WebScrapingState extends State<WebScraping> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
-                                    text1=snapshot.data![index].turkish;
-                                    text2= snapshot.data![index].english;
+                                    text1=snapshot.data![index].turkish!;
+                                    text2= snapshot.data![index].english!;
                                     _submitForm();
                                     wordser.addWords(receivedData);
                                     // Butona tıklanınca yapılacak işlemler
